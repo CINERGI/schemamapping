@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmd:MD_Metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gco="http://www.isotc211.org/2005/gco"
+   xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gmx="http://www.isotc211.org/2005/gmx"
+   xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
+   xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink"
+   xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd">
+   <gmd:fileIdentifier>
+      <gco:CharacterString>primaryKey</gco:CharacterString>
+   </gmd:fileIdentifier>
+   <gmd:language>
+      <gco:CharacterString>$.metadataProperties.metadataLanguage</gco:CharacterString>
+   </gmd:language>
+   <gmd:characterSet>
+      <gmd:MD_CharacterSetCode codeList="$.metadataProperties.metadataCharacterSet.characterSetVocabularyURI" codeListValue="$.metadataProperties.metadataCharacterSet.characterSetURI" codeSpace="$.metadataProperties.metadataCharacterSet.characterSetCodespace">$.metadataProperties.metadataCharacterSet.characterSetLabel</gmd:MD_CharacterSetCode>
+   </gmd:characterSet>
+   <gmd:hierarchyLevel>
+      <gmd:MD_ScopeCode codeList="$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:hierarchyLevel'}.keyowordSourceURI" codeSpace="$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:hierarchyLevel'}.keywords.keywordURI" codeListValue="$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:hierarchyLevel'}.keywords.keyword">$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:hierarchyLevel'}.keywords.keyword</gmd:MD_ScopeCode>
+   </gmd:hierarchyLevel>
+   <gmd:hierarchyLevelName>
+      <gco:CharacterString>$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:hierarchyLevelName'}.keywords.keyword</gco:CharacterString>
+   </gmd:hierarchyLevelName>
+   <gmd:contact>
+      <!--to XML: for each $..metadataContact.agent -->
+      <!-- from JSON group agents by role -->
+      <gmd:CI_ResponsibleParty>
+         <gmd:individualName>
+            <gco:CharacterString>$.metadataProperties.metadataContact.agent.personName</gco:CharacterString>
+         </gmd:individualName>
+         <gmd:organisationName>
+            <gco:CharacterString>$.metadataProperties.metadataContact.agent.organizationName</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:positionName>
+            <gco:CharacterString>$.metadataProperties.metadataContact.agent.personPosition</gco:CharacterString>
+         </gmd:positionName>
+         <gmd:contactInfo>
+            <gmd:CI_Contact>
+               <gmd:phone>
+                  <gmd:CI_Telephone>
+                     <gmd:voice>
+                        <gco:CharacterString>$.metadataProperties.metadataContact.agent.voicePhoneNumber</gco:CharacterString>
+                     </gmd:voice>
+                     <gmd:facsimile>
+                        <gco:CharacterString>$.metadataProperties.metadataContact.agent.faxPhoneNumber</gco:CharacterString>
+                     </gmd:facsimile>
+                  </gmd:CI_Telephone>
+               </gmd:phone>
+               <gmd:address>
+                  <gmd:CI_Address>
+                     <!-- to JSON concatentate deliveryPoint, city, administrativeArea, postalCode, country in 
+                        comma-delimited list into $.metadataProperties.metadataContact.agent.contactAddress-->
+                     <gmd:deliveryPoint/>
+                     <gmd:city/>
+                     <gmd:administrativeArea/>
+                     <gmd:postalCode/>
+                     <gmd:country/>
+                     <gmd:electronicMailAddress>$.metadataProperties.metadataContact.agent.contactEmail</gmd:electronicMailAddress>
+                  </gmd:CI_Address>
+               </gmd:address>
+               <gmd:onlineResource>
+                  <gmd:CI_OnlineResource>
+                     <gmd:linkage></gmd:linkage>
+                     <gmd:protocol></gmd:protocol>
+                     <gmd:applicationProfile></gmd:applicationProfile>
+                     <gmd:name></gmd:name>
+                     <gmd:description></gmd:description>
+                     <gmd:function>
+<gmd:CI_OnLineFunctionCode codeList="" codeListValue=""></gmd:CI_OnLineFunctionCode>
+                     </gmd:function>
+                  </gmd:CI_OnlineResource>
+               </gmd:onlineResource>
+               <gmd:hoursOfService>
+                  <gco:CharacterString></gco:CharacterString>
+               </gmd:hoursOfService>
+               <gmd:contactInstructions>
+                  <gco:CharacterString></gco:CharacterString>
+               </gmd:contactInstructions>
+            </gmd:CI_Contact>
+         </gmd:contactInfo>
+         <gmd:role>
+            <gmd:CI_RoleCode codeList="$.metadataProperties.metadataContact.agentRoleVocabularyURI" codeListValue="$.metadataProperties.metadataContact.agentRoleURI" codeSpace="$.metadataProperties.metadataContact.agentRoleCodespace">$.metadataProperties.metadataContact.agentRoleLabel</gmd:CI_RoleCode>
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+   <!-- EXAMPLE for hierarchical organization names in JSON:
+      given an organization name like 'parent1 >> parent2 >> org' 
+   <gmd:contact xlink:title="leaf full name">
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName> -->
+   <!-- 'expanded' means abbreviations are expanded to full preferred name for organization -->
+   <!--
+            <gco:CharacterString>orgExpanded</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:role>
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
+               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+   <gmd:contact xlink:title="org URI">
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>uri3 here</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:role>
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
+               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+   <gmd:contact  xlink:title="parent URI" >
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>uri1 here</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:role gco:nilReason="inapplicable"/>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+   <gmd:contact  xlink:title="parent URI">
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>uri2 here</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:role gco:nilReason="inapplicable"/>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+   <gmd:contact xlink:title="original name">
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>parent1 >> parent2 >> org</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:role>
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
+               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+    <gmd:contact xlink:title="full name expanded">
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>parent1expanded >> parent2expanded >> orgexpanded</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:role>
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
+               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+ end example -->
+
+   <gmd:dateStamp>
+      <gco:DateTime>$.metadataProperties.metadataUpdateDate (in YYYY-MM-DDThh:mm:ss format 'Z' for
+         gmt ideally, but can use +/-N for time zones)</gco:DateTime>
+   </gmd:dateStamp>
+   <gmd:metadataStandardName>
+      <gco:CharacterString>$.metadataProperties.metadataHarvestedFormat.metadataStandardLabel</gco:CharacterString>
+   </gmd:metadataStandardName>
+   <gmd:metadataStandardVersion>
+      <gco:CharacterString>$.metadataProperties.metadataHarvestedFormat.metadataStandardLabel (prefix with 'ver:')</gco:CharacterString>
+   </gmd:metadataStandardVersion>
+   <gmd:dataSetURI>
+      <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.resourceURI[0] put other identifiers in gmd:CI_Citation</gco:CharacterString>
+   </gmd:dataSetURI>
+
+   <gmd:identificationInfo>
+      <gmd:MD_DataIdentification>
+         <gmd:citation>
+            <gmd:CI_Citation>
+               <gmd:title>
+                  <gco:CharacterString>$.resourceDocumentation.resourceTitle[0]</gco:CharacterString>
+               </gmd:title>
+               <gmd:alternateTitle>
+                  <gco:CharacterString>$.resourceDocumentation.resourceTitle[1..]</gco:CharacterString>
+               </gmd:alternateTitle>
+               <gmd:date>
+                  <gmd:CI_Date>
+                     <gmd:date>
+                        <gco:DateTime>$.resourceDocumentation.citationDates[].dateTime</gco:DateTime>
+                     </gmd:date>
+                     <gmd:dateType>
+                        <gmd:CI_DateTypeCode 
+                           codeList="$.resourceDocumentation.citationDates[].dateTypeVocabularyURI" 
+                           codeListValue="$.resourceDocumentation.citationDates[].dateTypeURI" 
+                           codeSpace="$.resourceDocumentation.citationDates[].dateTypeCodespace">
+                           $.resourceDocumentation.citationDates[].dateTypeLabel</gmd:CI_DateTypeCode>
+                     </gmd:dateType>
+                  </gmd:CI_Date>
+               </gmd:date>
+               <!-- To JSON: recommendedCitation element should concatenate citedResponsibleParty, date,
+                  dateType, editionDate, editionDateType, title, alternateTitle, series.name,
+                  series.issueIdentification, series.page,collectiveTitle, otherCitationDetails 
+                  into one formatted string. 
+                  If the content in these fields needs to be parsable into fielded elements in output
+                  formats, then a JSON object preserving this structure could be included in Extras.
+               ToXML: the content of recommendedCitation should go into gmd:otherCitationDetails -->
+               <gmd:edition>
+                  <gco:CharacterString> concatenate in $.resourceDocumentation.recommendedCitation</gco:CharacterString>
+               </gmd:edition>
+               <gmd:editionDate>
+                  <gco:DateTime>concatenate in $.resourceDocumentation.recommendedCitation</gco:DateTime>
+               </gmd:editionDate>
+               <gmd:identifier>
+                  <!-- resourceIdentifier -->
+                  <gmd:MD_Identifier>
+                     <gmd:authority xlink:href="$.resourceDocumentation.resourceIdentifier[identifierLabel='citation.identifier.authority.href'].resourceAuthorityURI">
+                        <gmd:CI_Citation>
+                           <gmd:title>
+                              <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.identifierLabel  (concat gmd:title and gmd:date)</gco:CharacterString>
+                           </gmd:title>
+                           <gmd:date>concat date and dateTypeCodeValue with title in the identifierLabel key</gmd:date>
+                           <gmd:identifier>
+                              <gmd:MD_Identifier>
+                                 <gmd:code>$.resourceDocumentation.resourceIdentifier[identifierLabel= (concat gmd:title and gmd:date)].resourceAuthorityURI</gmd:code>
+                              </gmd:MD_Identifier>
+                           </gmd:identifier>
+                        </gmd:CI_Citation>
+                     </gmd:authority>
+                     <gmd:code> <!-- if gmd:authority is missing, then set identiferLabel = 'citation.identifier.code'  -->
+                        <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.resourceURI</gco:CharacterString>
+                     </gmd:code>
+                  </gmd:MD_Identifier>
+               </gmd:identifier>
+               <gmd:identifier>
+                  <gmd:RS_Identifier>
+                     <!-- handle gmd:authority and gmd:code same as for gmd:MD_Identifier -->
+                     <gmd:authority>
+                        <gmd:CI_Citation>
+                           <gmd:title></gmd:title>
+                           <gmd:date></gmd:date>
+                        </gmd:CI_Citation>
+                     </gmd:authority>
+                     <gmd:code>
+                        <gco:CharacterString></gco:CharacterString>
+                     </gmd:code>
+                     <gmd:codeSpace>
+                        <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.identifierType</gco:CharacterString>
+                     </gmd:codeSpace>
+                     <gmd:version>
+                        <gco:CharacterString>If present, include as suffix on $.resourceDocumentation.resourceIdentifier.resourceURI, with 'ver:' prefixed on the version ID string</gco:CharacterString>
+                     </gmd:version>
+                  </gmd:RS_Identifier>
+               </gmd:identifier>
+               <gmd:citedResponsibleParty>
+                  <!-- load into citedSourceAgents using same pattern as used for gmd:contact (metadataContact)-->
+                  <gmd:CI_ResponsibleParty>
+                     <gmd:role/>
+                  </gmd:CI_ResponsibleParty>
+               </gmd:citedResponsibleParty>
+               <gmd:presentationForm>
+                  <gmd:CI_PresentationFormCode codeList="" codeListValue=""/>
+               </gmd:presentationForm>
+               <gmd:series>
+                  <gmd:CI_Series>
+                     <gmd:name>
+                        <gco:CharacterString/>
+                     </gmd:name>
+                     <gmd:issueIdentification>
+                        <gco:CharacterString/>
+                     </gmd:issueIdentification>
+                     <gmd:page>
+                        <gco:CharacterString/>
+                     </gmd:page>
+                  </gmd:CI_Series>
+               </gmd:series>
+               <gmd:otherCitationDetails>
+                  <gco:CharacterString/>
+               </gmd:otherCitationDetails>
+               <gmd:collectiveTitle>
+                  <gco:CharacterString/>
+               </gmd:collectiveTitle>
+               <gmd:ISBN>
+                  <gco:CharacterString/>
+               </gmd:ISBN>
+               <gmd:ISSN>
+                  <gco:CharacterString/>
+               </gmd:ISSN>
+            </gmd:CI_Citation>
+         </gmd:citation>
+         <gmd:abstract>
+            <gco:CharacterString>The Upper Mississippi Valley zinc-lead district is hosted by Ordovician carbonate rocks at the northern margin of the Illinois Basin. Fluid inclusion temperature measurements on Early Permian sphalerite ore from the district are predominantly between 90?C and I50?C. These temperatures are greater than can be explained by their reconstructed burial depth, which was a maximum of approximately 1 km at the time of mineralization. In contrast to the temperatures of mineral formation derived from fluid inclusions, biomarker maturities in the Upper Mississippi Valley district give an estimate of total thermal exposure integrated over time. Temperatures from fluid inclusions trapped during ore genesis with biomarker maturities were combined to construct an estimate of the district's overall thermal history and, by inference, the late Paleozoic thermal and hydrologic history of the Illinois Basin. Circulation of groundwater through regional aquifers, given sufficient flow rates, can redistribute heat from deep in a sedimentary basin to its shallower margins. Evidence for regional-scale circulation of fluids is provided by paleomagnetic studies, regionally correlated zoned dolomite, fluid inclusions, and thermal maturity of organic matter. Evidence for igneous acti vity contemporaneous with mineralization in the vicinity of the Upper Mississippi Valley district is absent. Regional fluid and heat circulation is the most likely explanation for the elevated fluid inclusion temperatures (relative to maximum estimated burial depth) in the Upper Mississippi Valley district. One plausible driving mechanism and flow path for the ore-forming fluids is groundwater recharge in the late Paleozoic Appalachian-Ouachita mountain belt and northward flow through the Reelfoot rift and the proto- Illinois Basin to the Upper Mississippi Valley district. Warm fluid flowing laterally through Cambrian and Ordovician aquifers would then move vertically upward through the fractures that control sphalerite mineralization in the Upper Mississippi Valley district. Biomarker reactant-product measurements on rock extracts from the Upper Mississippi Valley district define a relatively low level ofthermal maturity for the district, 0.353 for sterane and 0.577 for hopane. Recently published kinetic constants permit a time-temperature relationship to be determined from these biomarker maturities. Numerical calculations were made to simulate fluid heat flow through the fracture-controlled ore zones of the Thompson-Temperly mine and heat transfer to the adjacent rocks where biomarker samples were collected. Calculations that combine the fluid inclusion temperatures and the biomarker constraints on thermal maturity indicate that the time interval during which mineralizing fluids circulated through the Upper Mississippi Valley district is on the order of 200,000 years. Fluid inclusion measurements and thermal maturities from biomarkers in the district reflect the duration of peak temperatures resulting from regional fluid circulation. On the basis of thermal considerations, the timing of fluorite mineralization in southern Illinois, and the northward-decreasing pattern of fluorine enrichment in sediments, we hypothesize that the principal flow direction was northward through the Cambrian and Ordovician aquifers of the Illinois Basin. A basin-scale flow system would result in mass transport (hydrocarbon migration, transport of metals in solution) and energy (heat) transport, which would in turn drive chemical reactions (for example, maturation of organic matter, mineralization, diagenetic reactions) within the Illinois Basin and at its margins.</gco:CharacterString>
+         </gmd:abstract>
+         <gmd:descriptiveKeywords>
+            <gmd:MD_Keywords>
+               <gmd:keyword>
+                  <gco:CharacterString>Bulletin</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:type>
+                  <gmd:MD_KeywordTypeCode codeList="https://www.sciencebase.gov/vocab/category/51084af0e4b0df796f216f17" codeListValue="Publication">Publication</gmd:MD_KeywordTypeCode>
+               </gmd:type>
+            </gmd:MD_Keywords>
+         </gmd:descriptiveKeywords>
+         <gmd:language>
+            <gco:CharacterString>eng</gco:CharacterString>
+         </gmd:language>
+         <gmd:extent>
+            <gmd:EX_Extent>
+               <gmd:temporalElement>
+                  <gmd:EX_TemporalExtent>
+                     <gmd:extent>
+                        <gml:TimePeriod gml:id="t27">
+                           <gml:beginPosition>2014-07-11T12:00:00Z </gml:beginPosition>
+                           <gml:endPosition> 2014-07-11T14:00:00Z </gml:endPosition>
+                        </gml:TimePeriod>
+                     </gmd:extent>
+                  </gmd:EX_TemporalExtent>
+               </gmd:temporalElement>
+            </gmd:EX_Extent>
+         </gmd:extent>
+
+      </gmd:MD_DataIdentification>
+   </gmd:identificationInfo>
+
+   <gmd:contentInfo>
+      <gmd:MD_FeatureCatalogueDescription>
+         <gmd:includedWithDataset>
+            <gco:Boolean>false</gco:Boolean>
+         </gmd:includedWithDataset>
+         <gmd:featureTypes>
+            <gco:LocalName codeSpace="AnyURI">theFeatureTypeName1
+      </gco:LocalName>
+         </gmd:featureTypes>
+         <gmd:featureTypes>
+            <gco:LocalName>featureTypeName2</gco:LocalName>
+         </gmd:featureTypes>
+         <gmd:featureCatalogueCitation>
+            <gmd:CI_Citation>
+               <gmd:title>
+                  <gco:CharacterString>thefeature catalog title</gco:CharacterString>
+               </gmd:title>
+               <gmd:date gco:nilReason="missing"/>
+            </gmd:CI_Citation>
+         </gmd:featureCatalogueCitation>
+
+      </gmd:MD_FeatureCatalogueDescription>
+   </gmd:contentInfo>
+   <gmd:contentInfo>
+      <gmd:MD_ImageDescription>
+         <gmd:attributeDescription gco:nilReason="missing"/>
+         <gmd:contentType>
+            <gmd:MD_CoverageContentTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_CoverageContentTypeCode" codeListValue="image"/>
+         </gmd:contentType>
+      </gmd:MD_ImageDescription>
+   </gmd:contentInfo>
+   <gmd:distributionInfo>
+      <gmd:MD_Distribution>
+         <gmd:distributor>
+            <gmd:MD_Distributor>
+               <gmd:distributorContact gco:nilReason="missing"/>
+               <gmd:distributionOrderProcess>
+                  <gmd:MD_StandardOrderProcess>
+                     <gmd:plannedAvailableDateTime>
+                        <gco:DateTime> 2014-11-22T15:33:01 </gco:DateTime>
+                     </gmd:plannedAvailableDateTime>
+                  </gmd:MD_StandardOrderProcess>
+               </gmd:distributionOrderProcess>
+
+            </gmd:MD_Distributor>
+         </gmd:distributor>
+         <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+               <gmd:onLine>
+                  <gmd:CI_OnlineResource>
+                     <gmd:linkage>
+                        <gmd:URL>https://www.sciencebase.gov/catalog/item/4f4e49d6e4b07f02db5de6c7</gmd:URL>
+                     </gmd:linkage>
+                     <gmd:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </gmd:protocol>
+                     <gmd:applicationProfile>
+                        <gco:CharacterString>Web Browser</gco:CharacterString>
+                     </gmd:applicationProfile>
+                     <gmd:name>
+                        <gco:CharacterString>ScienceBase Item Summary Page</gco:CharacterString>
+                     </gmd:name>
+                     <gmd:description>
+                        <gco:CharacterString>Link to the ScienceBase Item Summary page for the item described by this metadata record</gco:CharacterString>
+                     </gmd:description>
+                     <gmd:function>
+                        <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
+                     </gmd:function>
+                  </gmd:CI_OnlineResource>
+               </gmd:onLine>
+               <gmd:onLine>
+                  <gmd:CI_OnlineResource>
+                     <gmd:linkage>
+                        <gmd:URL>http://pubs.usgs.gov/bul/2094f/report.pdf</gmd:URL>
+                     </gmd:linkage>
+                     <gmd:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </gmd:protocol>
+                     <gmd:applicationProfile>
+                        <gco:CharacterString>Web Browser</gco:CharacterString>
+                     </gmd:applicationProfile>
+                     <gmd:name>
+                        <gco:CharacterString>PDF Download</gco:CharacterString>
+                     </gmd:name>
+                     <gmd:description>
+                        <gco:CharacterString>ScienceBase WebLink</gco:CharacterString>
+                     </gmd:description>
+                     <gmd:function>
+                        <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
+                     </gmd:function>
+                  </gmd:CI_OnlineResource>
+               </gmd:onLine>
+               <gmd:onLine>
+                  <gmd:CI_OnlineResource>
+                     <gmd:linkage>
+                        <gmd:URL>http://pubs.er.usgs.gov/publication/b2094F</gmd:URL>
+                     </gmd:linkage>
+                     <gmd:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </gmd:protocol>
+                     <gmd:applicationProfile>
+                        <gco:CharacterString>Web Browser</gco:CharacterString>
+                     </gmd:applicationProfile>
+                     <gmd:name>
+                        <gco:CharacterString>Web Site</gco:CharacterString>
+                     </gmd:name>
+                     <gmd:description>
+                        <gco:CharacterString>ScienceBase WebLink</gco:CharacterString>
+                     </gmd:description>
+                     <gmd:function>
+                        <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
+                     </gmd:function>
+                  </gmd:CI_OnlineResource>
+               </gmd:onLine>
+               <gmd:offLine>
+                  <gmd:MD_Medium>
+                     <gmd:density gco:nilReason="missing"/>
+                  </gmd:MD_Medium>
+               </gmd:offLine>
+            </gmd:MD_DigitalTransferOptions>
+         </gmd:transferOptions>
+      </gmd:MD_Distribution>
+   </gmd:distributionInfo>
+   <gmd:dataQualityInfo>
+      <gmd:DQ_DataQuality>
+         <gmd:scope>
+            <gmd:DQ_Scope>
+               <gmd:level>
+                  <gmd:MD_ScopeCode codeList="uri" codeListValue="dataset"/>
+               </gmd:level>
+            </gmd:DQ_Scope>
+         </gmd:scope>
+         <gmd:report>
+            <gmd:DQ_AbsoluteExternalPositionalAccuracy>
+               <gmd:nameOfMeasure>
+                  <gco:CharacterString/>
+               </gmd:nameOfMeasure>
+               <gmd:result>
+                  <gmd:DQ_QuantitativeResult>
+                     <gmd:valueUnit gco:nilReason="missing"/>
+                     <gmd:value>
+                        <gco:Record> record type is just a string... </gco:Record>
+                     </gmd:value>
+                  </gmd:DQ_QuantitativeResult>
+               </gmd:result>
+               <gmd:result>
+                  <gmd:DQ_ConformanceResult>
+                     <gmd:specification/>
+                     <gmd:explanation/>
+                     <gmd:pass/>
+                  </gmd:DQ_ConformanceResult>
+               </gmd:result>
+            </gmd:DQ_AbsoluteExternalPositionalAccuracy>
+         </gmd:report>
+         <gmd:report>
+            <gmd:DQ_CompletenessOmission>
+               <gmd:result>
+                  <gmd:DQ_ConformanceResult>
+                     <gmd:specification/>
+                     <gmd:explanation/>
+                     <gmd:pass/>
+                  </gmd:DQ_ConformanceResult>
+               </gmd:result>
+            </gmd:DQ_CompletenessOmission>
+         </gmd:report>
+         <gmd:lineage>
+            <gmd:LI_Lineage>
+               <gmd:source>
+                  <gmd:LI_Source id="theID"/>
+               </gmd:source>
+
+            </gmd:LI_Lineage>
+         </gmd:lineage>
+      </gmd:DQ_DataQuality>
+   </gmd:dataQualityInfo>
+
+   <gmd:metadataConstraints>
+      <gmd:MD_Constraints>
+         <gmd:useLimitation>
+            <gco:CharacterString>none</gco:CharacterString>
+         </gmd:useLimitation>
+      </gmd:MD_Constraints>
+   </gmd:metadataConstraints>
+</gmd:MD_Metadata>
