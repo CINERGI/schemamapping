@@ -4,7 +4,9 @@
    xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gmx="http://www.isotc211.org/2005/gmx"
    xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
    xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink"
-   xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd">
+   xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd">
+<!--   http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd
+-->   
    <gmd:fileIdentifier>
       <gco:CharacterString>$.primaryKey</gco:CharacterString>
    </gmd:fileIdentifier>
@@ -100,13 +102,15 @@
    </gmd:contact>
    <!-- EXAMPLE for hierarchical organization names in JSON:
       given an organization name like 'parent1 >> parent2 >> org' 
+   Also includes example of mapping for  gmx:Anchor  -->
    <gmd:contact xlink:title="leaf full name">
       <gmd:CI_ResponsibleParty>
-         <gmd:organisationName> -->
+         <gmd:organisationName> 
    <!-- 'expanded' means abbreviations are expanded to full preferred name for organization -->
-   <!--
-            <gco:CharacterString>orgExpanded</gco:CharacterString>
-         </gmd:organisationName>
+            <gmx:Anchor xlink:href="$.metadataProperties.metadataContact.agents[].organizationURI[]">             $.metadataProperties.metadataContact.agents[].organizationName[]
+   </gmx:Anchor>
+<!--            <gco:CharacterString>orgExpanded</gco:CharacterString>
+-->         </gmd:organisationName>
          <gmd:role>
             <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
                codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
@@ -162,7 +166,7 @@
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
- end example -->
+<!-- end example -->
 
    <gmd:dateStamp>
       <gco:DateTime>$.metadataProperties.metadataUpdateDate (in YYYY-MM-DDThh:mm:ss format 'Z' for
@@ -182,7 +186,7 @@
       <gmd:MD_DataIdentification>
          <gmd:citation>
             <gmd:CI_Citation>
-               <gmd:title> <!--  first element in $..resourceTitle array -->
+               <gmd:title> <!--  first token in $..resourceTitle array -->
                   <gco:CharacterString>$.resourceDocumentation.resourceTitle[0]</gco:CharacterString>
                </gmd:title>
                <gmd:alternateTitle> <!-- alternate titles are addiitional elements in the $..resourceTitle array -->
@@ -210,10 +214,10 @@
                   formats, then a JSON object preserving this structure could be included in Extras.
                ToXML: the content of recommendedCitation should go into gmd:otherCitationDetails -->
                <gmd:edition>
-                  <gco:CharacterString> concatenate in $.resourceDocumentation.recommendedCitation</gco:CharacterString>
+                  <gco:CharacterString>concatenate in $.resourceDocumentation.recommendedCitation</gco:CharacterString>
                </gmd:edition>
                <gmd:editionDate>
-                  <gco:DateTime>concatenate in $.resourceDocumentation.recommendedCitation</gco:DateTime>
+                  <gco:DateTime>concatenate as string in $.resourceDocumentation.recommendedCitation</gco:DateTime>
                </gmd:editionDate>
                <gmd:identifier>
                   <!-- resourceIdentifier -->
@@ -252,7 +256,7 @@
                         <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.identifierType</gco:CharacterString>
                      </gmd:codeSpace>
                      <gmd:version>
-                        <gco:CharacterString>If present, include as suffix on $.resourceDocumentation.resourceIdentifier.resourceURI, with 'ver:' prefixed on the version ID string</gco:CharacterString>
+                        <gco:CharacterString>If present, include as suffix on $.resourceDocumentation.resourceIdentifier.resourceURI, with '.ver:' prefixed on the version ID string</gco:CharacterString>
                      </gmd:version>
                   </gmd:RS_Identifier>
                </gmd:identifier>
@@ -263,51 +267,150 @@
                   </gmd:CI_ResponsibleParty>
                </gmd:citedResponsibleParty>
                <gmd:presentationForm>
-                  <gmd:CI_PresentationFormCode codeList="" codeListValue=""/>
+                  <gmd:CI_PresentationFormCode codeList="$.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywordTypeURI" 
+                     codeListValue="$.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywords.keyword[]">
+                     $.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywords.keyword[]
+                                    </gmd:CI_PresentationFormCode>
                </gmd:presentationForm>
                <gmd:series>
                   <gmd:CI_Series>
                      <gmd:name>
-                        <gco:CharacterString/>
+                        <gco:CharacterString>concatenate as string in $.resourceDocumentation.recommendedCitation
+                        </gco:CharacterString>
                      </gmd:name>
                      <gmd:issueIdentification>
-                        <gco:CharacterString/>
+                        <gco:CharacterString>concatenate as string in $.resourceDocumentation.recommendedCitation
+                        </gco:CharacterString>
                      </gmd:issueIdentification>
                      <gmd:page>
-                        <gco:CharacterString/>
+                        <gco:CharacterString>concatenate as string in $.resourceDocumentation.recommendedCitation
+                        </gco:CharacterString>
                      </gmd:page>
                   </gmd:CI_Series>
                </gmd:series>
+               <!-- To JSON: recommendedCitation element should concatenate citedResponsibleParty, date,
+                  dateType, editionDate, editionDateType, title, alternateTitle, series.name,
+                  series.issueIdentification, series.page,collectiveTitle, otherCitationDetails 
+                  into one formatted string. 
+                  If the content in these fields needs to be parsable into fielded elements in output
+                  formats, then a JSON object preserving this structure could be included in Extras.
+               ToXML: the content of recommendedCitation should go into gmd:otherCitationDetails -->
                <gmd:otherCitationDetails>
-                  <gco:CharacterString/>
+                  <gco:CharacterString>concatenate citedResponsibleParty, date,
+                     dateType, editionDate, editionDateType, title, alternateTitle, series.name,
+                     series.issueIdentification, series.page,collectiveTitle, otherCitationDetails</gco:CharacterString>
                </gmd:otherCitationDetails>
                <gmd:collectiveTitle>
-                  <gco:CharacterString/>
+                  <gco:CharacterString>concatenate as string in $.resourceDocumentation.recommendedCitation</gco:CharacterString>
                </gmd:collectiveTitle>
-               <gmd:ISBN>
-                  <gco:CharacterString/>
+               <gmd:ISBN> <!-- set "$.resourceDocumentation.resourceIdentifier.identifierType and identifierLabel = 'ISBN' -->
+                  <gco:CharacterString>"$.resourceDocumentation.resourceIdentifier[identifierLabel='ISBN'].resourceURI</gco:CharacterString>
                </gmd:ISBN>
-               <gmd:ISSN>
-                  <gco:CharacterString/>
+               <gmd:ISSN> <!-- set "$.resourceDocumentation.resourceIdentifier.identifierType and identifierLabel = 'ISSN' -->
+                  <gco:CharacterString>"$.resourceDocumentation.resourceIdentifier[identifierLabel='ISSN'].resourceURI</gco:CharacterString>
                </gmd:ISSN>
             </gmd:CI_Citation>
          </gmd:citation>
          <gmd:abstract>
-            <gco:CharacterString>The Upper Mississippi Valley zinc-lead district is hosted by Ordovician carbonate rocks at the northern margin of the Illinois Basin. Fluid inclusion temperature measurements on Early Permian sphalerite ore from the district are predominantly between 90?C and I50?C. These temperatures are greater than can be explained by their reconstructed burial depth, which was a maximum of approximately 1 km at the time of mineralization. In contrast to the temperatures of mineral formation derived from fluid inclusions, biomarker maturities in the Upper Mississippi Valley district give an estimate of total thermal exposure integrated over time. Temperatures from fluid inclusions trapped during ore genesis with biomarker maturities were combined to construct an estimate of the district's overall thermal history and, by inference, the late Paleozoic thermal and hydrologic history of the Illinois Basin. Circulation of groundwater through regional aquifers, given sufficient flow rates, can redistribute heat from deep in a sedimentary basin to its shallower margins. Evidence for regional-scale circulation of fluids is provided by paleomagnetic studies, regionally correlated zoned dolomite, fluid inclusions, and thermal maturity of organic matter. Evidence for igneous acti vity contemporaneous with mineralization in the vicinity of the Upper Mississippi Valley district is absent. Regional fluid and heat circulation is the most likely explanation for the elevated fluid inclusion temperatures (relative to maximum estimated burial depth) in the Upper Mississippi Valley district. One plausible driving mechanism and flow path for the ore-forming fluids is groundwater recharge in the late Paleozoic Appalachian-Ouachita mountain belt and northward flow through the Reelfoot rift and the proto- Illinois Basin to the Upper Mississippi Valley district. Warm fluid flowing laterally through Cambrian and Ordovician aquifers would then move vertically upward through the fractures that control sphalerite mineralization in the Upper Mississippi Valley district. Biomarker reactant-product measurements on rock extracts from the Upper Mississippi Valley district define a relatively low level ofthermal maturity for the district, 0.353 for sterane and 0.577 for hopane. Recently published kinetic constants permit a time-temperature relationship to be determined from these biomarker maturities. Numerical calculations were made to simulate fluid heat flow through the fracture-controlled ore zones of the Thompson-Temperly mine and heat transfer to the adjacent rocks where biomarker samples were collected. Calculations that combine the fluid inclusion temperatures and the biomarker constraints on thermal maturity indicate that the time interval during which mineralizing fluids circulated through the Upper Mississippi Valley district is on the order of 200,000 years. Fluid inclusion measurements and thermal maturities from biomarkers in the district reflect the duration of peak temperatures resulting from regional fluid circulation. On the basis of thermal considerations, the timing of fluorite mineralization in southern Illinois, and the northward-decreasing pattern of fluorine enrichment in sediments, we hypothesize that the principal flow direction was northward through the Cambrian and Ordovician aquifers of the Illinois Basin. A basin-scale flow system would result in mass transport (hydrocarbon migration, transport of metals in solution) and energy (heat) transport, which would in turn drive chemical reactions (for example, maturation of organic matter, mineralization, diagenetic reactions) within the Illinois Basin and at its margins.</gco:CharacterString>
+            <gco:CharacterString>$.resourceDocumentation.resourceDescription</gco:CharacterString>
          </gmd:abstract>
          <gmd:descriptiveKeywords>
             <gmd:MD_Keywords>
-               <gmd:keyword>
-                  <gco:CharacterString>Bulletin</gco:CharacterString>
+               <gmd:keyword> <!-- group on KeywordTypeLabel or KeywordTypeURI  -->
+                  <gco:CharacterString>$.resourceDocumentation.resourceIndexTerms[].keywords[].keyword</gco:CharacterString>
                </gmd:keyword>
                <gmd:type>
-                  <gmd:MD_KeywordTypeCode codeList="https://www.sciencebase.gov/vocab/category/51084af0e4b0df796f216f17" codeListValue="Publication">Publication</gmd:MD_KeywordTypeCode>
+                  <gmd:MD_KeywordTypeCode codeList="$.resourceDocumentation.resourceIndexTerms[].keywordTypeVocabularyURI" 
+                     codeListValue="$.resourceDocumentation.resourceIndexTerms[].keywordTypeURI"
+                     codeSpace="$.resourceDocumentation.resourceIndexTerms[].keywordTypeCodespace">
+                     $.resourceDocumentation.resourceIndexTerms[].keyworTypeLabel</gmd:MD_KeywordTypeCode>
                </gmd:type>
+               <gmd:thesaurusName xlink:href="$.resourceDocumentation.resourceIndexTerms[].keywordSourceURI
+                  OR UUID for full CI_Citation element translated to JSON in the extras section">
+                  <gmd:CI_Citation>
+                     <gmd:title>
+                        <gco:CharacterString>$.resourceDocumentation.resourceIndexTerms[].keywordSourceLabel</gco:CharacterString>
+                     </gmd:title>
+                     <gmd:date></gmd:date>  <!-- other citation content should be loaded in extras; assign an ID and reference from here -->
+                     <gmd:identifier>
+                        <gmd:MD_Identifier>
+                           <gmd:code>
+                              <gco:CharacterString>$.resourceDocumentation.resourceIndexTerms[].keywordSourceURI</gco:CharacterString>
+                           </gmd:code>
+                        </gmd:MD_Identifier>
+                     </gmd:identifier>
+                  </gmd:CI_Citation>
+               </gmd:thesaurusName>
             </gmd:MD_Keywords>
          </gmd:descriptiveKeywords>
          <gmd:language>
-            <gco:CharacterString>eng</gco:CharacterString>
+            <gco:CharacterString>$.resourceDocumentation.resourceLanguages[].ISO639code</gco:CharacterString>
          </gmd:language>
+         <gmd:extent xlink:href="$.resourceDocumentation.geographicExtent.referencedExtentURI">
+            <gmd:EX_Extent>
+               <gmd:description>
+                  <gco:CharacterString>$.resourceDocumentation.geographicExtent.extentStatement & ', referencedExtentLabel:'&amp;
+                     $.resourceDocumentation.geographicExtent.referencedExtentLabel</gco:CharacterString>
+               </gmd:description>
+               <gmd:geographicElement>
+                  <gmd:EX_GeographicDescription>
+                     <gmd:extentTypeCode>
+                        <gco:Boolean>false</gco:Boolean>
+                     </gmd:extentTypeCode>
+                     <gmd:geographicIdentifier xlink:href="$.resourceDocumentation.geographicExtent.extentGazetteerURI">
+                        <gmd:MD_Identifier>
+                           <gmd:authority>
+                              <gmd:CI_Citation>
+                                 <gmd:title>
+                                    <gco:CharacterString>$.resourceDocumentation.geographicExtent.extentReference.extentGazetteerName</gco:CharacterString>
+                                 </gmd:title>
+                                 <gmd:date></gmd:date>
+                                 <gmd:identifier>
+                                    <gmd:MD_Identifier>
+                                       <gmd:authority>
+                                          <gmd:CI_Citation>
+                                             <gmd:title></gmd:title>
+                                             <gmd:date></gmd:date>
+                                          </gmd:CI_Citation>
+                                       </gmd:authority>
+                                       <gmd:code>$.resourceDocumentation.geographicExtent.extentGazetteerURI</gmd:code>
+                                    </gmd:MD_Identifier>
+                                 </gmd:identifier>
+                              </gmd:CI_Citation>
+                           </gmd:authority>
+                           <gmd:code>
+                              <gco:CharacterString>$.resourceDocumentation.geographicExtent.referencedExtentURI</gco:CharacterString>
+                           </gmd:code>
+                        </gmd:MD_Identifier>
+                     </gmd:geographicIdentifier>
+                  </gmd:EX_GeographicDescription>
+               </gmd:geographicElement>
+               <gmd:geographicElement>
+                  <gmd:EX_GeographicBoundingBox>
+                     <gmd:westBoundLongitude></gmd:westBoundLongitude>
+                     <gmd:eastBoundLongitude></gmd:eastBoundLongitude>
+                     <gmd:southBoundLatitude></gmd:southBoundLatitude>
+                     <gmd:northBoundLatitude></gmd:northBoundLatitude>
+                  </gmd:EX_GeographicBoundingBox>
+               </gmd:geographicElement>
+               <gmd:geographicElement>
+                  <gmd:EX_BoundingPolygon>  <!-- convert geometry to GeoJSON, calculate a BBox and put in
+                  $.resourceDocumentation.geographicExtent.boundingBoxWGS84 if there isn't an 
+                  gmd:EX_GeographicBoundingBox in the metadata record. Note that the data type is GM_AbstractGeometry,
+                  so technically there could be any gml geometry in the gmd:polygon element... -->
+                     <gmd:polygon></gmd:polygon>
+                  </gmd:EX_BoundingPolygon>
+               </gmd:geographicElement>
+               <gmd:verticalElement>
+                  <gmd:EX_VerticalExtent>
+                     <gmd:minimumValue></gmd:minimumValue>
+                     <gmd:maximumValue></gmd:maximumValue>
+                     <gmd:verticalCRS>
+                     </gmd:verticalCRS>
+                  </gmd:EX_VerticalExtent>
+               </gmd:verticalElement>
+            </gmd:EX_Extent>
+         </gmd:extent>
          <gmd:extent>
             <gmd:EX_Extent>
                <gmd:temporalElement>
