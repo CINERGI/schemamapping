@@ -1,69 +1,12 @@
-gmx:Anchor -> 165719
-ns4:Anchor -> 51294
-
-gmd:contact -> 37072
-gmd:citedResponsibleParty -> 75155
-gmd:distributorContact -> 19972
-gmd:pointOfContact -> 19818
-gmd:CI_ResponsibleParty -> 159107
-gmd:organisationName -> 132145
-gmd:CI_RoleCode/gmd:role -> 147313
-gmd:individualName -> 28633
-gmd:positionName -> 25930
-
-gmd:citation -> 22823
-gmd:CI_Citation/gmd:title -> 134520
-gmd:ISBN -> 6431
-gmd:series -> 6220
-gmd:CI_Series -> 6220
-gmd:issueIdentification -> 6201
-gmd:identifier -> 15984
-gmd:presentationForm -> 14359
-gmd:CI_PresentationFormCode -> 14359
-
-gmd:descriptiveKeywords/gmd:MD_Keywords -> 112171
-gmd:keyword -> 470136
-gmd:thesaurusName -> 94347
-gmd:type/gmd:MD_KeywordTypeCode -> 91596
-
-gmd:date -> 106340
-gmd:contactInfo/gmd:CI_Contact -> 105821
-gmd:voice -> 70865
-gmd:phone/gmd:CI_Telephone -> 63665
-gmd:facsimile -> 53812
-gmd:hoursOfService -> 20368
-
-gmd:address -> 83999
-gmd:CI_Address -> 83999
-gmd:city -> 78330
-gmd:administrativeArea -> 74346
-gmd:deliveryPoint -> 71246
-gmd:postalCode -> 67663
-gmd:country -> 66473
-gmd:electronicMailAddress -> 62043
-
-gmd:MD_DigitalTransferOptions -> 34062
-gmd:distributorTransferOptions -> 23441
-gmd:transferOptions -> 10621
-gmd:CI_OnlineResource -> 71244
-gmd:linkage -> 71239
-gmd:URL -> 71239
-gmd:function/gmd:CI_OnLineFunctionCode -> 44733
-gmd:protocol -> 41697
-gmd:applicationProfile -> 26480
-gmd:onLine -> 36149
-gmd:onlineResource -> 34731
-
-
-gco:aName -> 70748
-
+*******************************  ?TO DO
 gmd:dimension/gmd:MD_Band -> 69841
+gmd:minValue -> 15250
+gmd:maxValue -> 15245
+gmd:units -> 10174
+
 gmd:sequenceIdentifier/gco:MemberName -> 69791
 gmd:axisDimensionProperties/gmd:MD_Dimension/gmd:dimensionName/gmd:MD_DimensionNameTypeCode -> 3913
-
-gco:Date -> 69418
-gmd:description -> 63694
-
+gco:aName -> 70748
 
 gmd:resourceConstraints -> 57330
 gmd:metadataConstraints -> 8951
@@ -78,6 +21,73 @@ gmd:classification -> 13103
 gmd:MD_ClassificationCode -> 13103
 gmd:useConstraints -> 17305
 
+gmd:MD_MaintenanceInformation -> 30008
+gmd:resourceMaintenance -> 18250
+gmd:metadataMaintenance -> 11758
+gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode -> 29895
+gmd:descriptor -> 28446
+gmd:maintenanceNote -> 12450
+
+*********************************************
+
+xxgmx:Anchor -> 165719
+xxns4:Anchor -> 51294
+
+xxgmd:contact -> 37072
+xxgmd:citedResponsibleParty -> 75155
+xxgmd:distributorContact -> 19972
+xxxgmd:pointOfContact -> 19818
+xxxgmd:CI_ResponsibleParty -> 159107
+xxxgmd:organisationName -> 132145
+xxxgmd:CI_RoleCode/gmd:role -> 147313
+xxxgmd:individualName -> 28633
+xxgmd:positionName -> 25930
+
+xxgmd:citation -> 22823
+xxgmd:CI_Citation/gmd:title -> 134520
+xxgmd:ISBN -> 6431
+xxgmd:series -> 6220
+xxgmd:CI_Series -> 6220
+xxgmd:issueIdentification -> 6201
+xxgmd:identifier -> 15984
+xxgmd:presentationForm -> 14359
+xxgmd:CI_PresentationFormCode -> 14359
+
+xxxgmd:descriptiveKeywords/gmd:MD_Keywords -> 112171
+xxxgmd:keyword -> 470136
+xxxgmd:thesaurusName -> 94347
+xxxgmd:type/gmd:MD_KeywordTypeCode -> 91596
+
+xxxgmd:date -> 106340
+xxxgmd:contactInfo/gmd:CI_Contact -> 105821
+xxxgmd:voice -> 70865
+xxxgmd:phone/gmd:CI_Telephone -> 63665
+xxxgmd:facsimile -> 53812
+xxxgmd:hoursOfService -> 20368
+
+xxxgmd:address -> 83999
+xxxgmd:CI_Address -> 83999
+xxxgmd:city -> 78330
+xxxgmd:administrativeArea -> 74346
+xxxgmd:deliveryPoint -> 71246
+xxxgmd:postalCode -> 67663
+xxxgmd:country -> 66473
+xxxgmd:electronicMailAddress -> 62043
+
+xxxgmd:MD_DigitalTransferOptions -> 34062
+xxxgmd:distributorTransferOptions -> 23441
+xxxgmd:transferOptions -> 10621
+xxxgmd:CI_OnlineResource -> 71244
+xxxgmd:linkage/gmd:URL -> 71239
+xxxgmd:function/gmd:CI_OnLineFunctionCode -> 44733
+xxxgmd:protocol -> 41697
+xxxgmd:applicationProfile -> 26480
+xxxgmd:onLine -> 36149
+xxxgmd:onlineResource -> 34731
+
+xxxgco:Date -> 69418
+xxxgmd:description -> 63694
+
 gmd:name -> 56811
 
 gmd:CI_Date -> 54457
@@ -86,45 +96,38 @@ gmd:CI_DateTypeCode -> 54152
 
 
 gmi:MI_Metadata -> 11790
-gmd:MD_Metadata -> 10780
-gmd:characterSet/gmd:MD_CharacterSetCode -> 26622
-gmd:language -> 42452
-gmd:topicCategory/gmd:MD_TopicCategoryCode -> 29992
-gmd:fileIdentifier -> 22570
-gmd:dateStamp -> 22570
-gmd:metadataStandardName -> 22570
-gmd:metadataStandardVersion -> 22570
-gmd:hierarchyLevel -> 22550
-gmd:hierarchyLevelName -> 7906
-gmd:MD_ScopeCode -> 32571
+xxxgmd:MD_Metadata -> 10780
+xxxgmd:characterSet/gmd:MD_CharacterSetCode -> 26622
+xxxgmd:language -> 42452
+xxxgmd:topicCategory/gmd:MD_TopicCategoryCode -> 29992
+xxxgmd:fileIdentifier -> 22570
+xxxgmd:dateStamp -> 22570
+xxxgmd:metadataStandardName -> 22570
+xxxgmd:metadataStandardVersion -> 22570
+xxxgmd:hierarchyLevel -> 22550
+xxxgmd:hierarchyLevelName -> 7906
+xxxgmd:MD_ScopeCode -> 32571
 
-gmd:EX_Extent -> 23173
-gmd:extent -> 37114
-gmd:geographicElement -> 19326
-gmd:EX_GeographicBoundingBox -> 19231
-gmd:westBoundLongitude -> 19231
-gmd:eastBoundLongitude -> 19231
-gmd:southBoundLatitude -> 19231
-gmd:northBoundLatitude -> 19231
+xxxgmd:EX_Extent -> 23173
+xxxgmd:extent -> 37114
+xxxgmd:geographicElement -> 19326
+xxxgmd:EX_GeographicBoundingBox -> 19231
+xxxgmd:westBoundLongitude -> 19231
+xxxgmd:eastBoundLongitude -> 19231
+xxxgmd:southBoundLatitude -> 19231
+xxxgmd:northBoundLatitude -> 19231
 
-gmd:MD_MaintenanceInformation -> 30008
-gmd:resourceMaintenance -> 18250
-gmd:metadataMaintenance -> 11758
-gmd:maintenanceAndUpdateFrequency/gmd:MD_MaintenanceFrequencyCode -> 29895
-gmd:descriptor -> 28446
-gmd:maintenanceNote -> 12450
+xxxgmd:identificationInfo -> 22823
+xxxgmd:MD_DataIdentification -> 22564
+xxxgmd:abstract -> 18144
 
-gmd:identificationInfo -> 22823
-gmd:MD_DataIdentification -> 22564
-gmd:abstract -> 18144
-
-gmd:distributionInfo -> 20057
-gmd:MD_Distribution -> 20057
-gmd:MD_Distributor -> 19979
-gmd:distributor -> 19968
-gmd:MD_Format -> 19583
-gmd:MD_StandardOrderProcess -> 15292
-gmd:distributionOrderProcess -> 15292
+xxxgmd:distributionInfo -> 20057
+xxxgmd:MD_Distribution -> 20057
+xxxgmd:MD_Distributor -> 19979
+xxxgmd:distributor -> 19968
+xxxgmd:MD_Format -> 19583
+xxxgmd:MD_StandardOrderProcess -> 15292
+xxxgmd:distributionOrderProcess -> 15292
 
 
 gmd:code -> 18662
@@ -142,7 +145,7 @@ gmd:LI_Lineage -> 10258
 gmd:processStep -> 9712
 gmi:LE_ProcessStep -> 9390
 gmd:report -> 12348
-gmd:units -> 10174
+
 gmd:scope -> 10051
 gmd:DQ_Scope -> 10051
 gmd:level -> 10038
@@ -152,8 +155,7 @@ gmd:MD_FeatureCatalogueDescription -> 3080
 gmd:includedWithDataset -> 3037
 
 gmd:LanguageCode -> 15349
-gmd:minValue -> 15250
-gmd:maxValue -> 15245
+
 gmd:fees -> 15230
 gco:DateTime -> 14566
 
@@ -168,22 +170,22 @@ ns4:name -> 9974
 gmd:supplementalInformation -> 9870
 gmd:evaluationMethodDescription -> 8623
 gmd:authority -> 8300
-gco:Integer -> 8241
+xxxgco:Integer -> 8241
 gmd:distributorFormat -> 8211
-gmd:dataSetURI -> 7851
+xxxgmd:dataSetURI -> 7851
 gml:TimePeriod -> 7770
 gml:beginPosition -> 7751
 gmd:dateTime -> 7737
 gml:endPosition -> 7594
-gmd:offLine -> 7151
+xxxgmd:offLine -> 7151
 gmd:MD_Medium -> 7151
 gmd:mediumNote -> 6487
 gmd:version -> 6465
 gmd:statement -> 6855
 gmd:processor -> 6747
 gmd:contentInfo -> 5907
-gco:Boolean -> 4666
-gmd:edition -> 4519
+xxxgco:Boolean -> 4666
+xxxgmd:edition -> 4519
 gmd:graphicOverview -> 4495
 gmd:MD_BrowseGraphic -> 4495
 gmd:fileName -> 4495
@@ -212,10 +214,10 @@ themekey -> 2756
 gmd:contactInstructions -> 2727
 gmd:nameOfMeasure -> 2532
 gmd:MD_CoverageDescription -> 2531
-ns5:TimePeriod -> 2466
-ns5:beginPosition -> 2466
+gml:TimePeriod -> 2466
+gml:beginPosition -> 2466
 gmd:spatialRepresentationInfo -> 2460
-ns5:endPosition -> 2447
+gml:endPosition -> 2447
 gmd:spatialResolution -> 2434
 gmd:MD_Resolution -> 2434
 gmd:otherCitationDetails -> 2372
@@ -405,12 +407,12 @@ pubtime -> 192
 digform -> 190
 digtopt -> 190
 ns4:description -> 189
-ns5:identifier -> 189
+gml:identifier -> 189
 digtinfo -> 188
 formname -> 188
 stdorder -> 183
-ns5:TimeInstant -> 181
-ns5:timePosition -> 181
+gml:TimeInstant -> 181
+gml:timePosition -> 181
 fees -> 181
 eainfo -> 178
 gmd:aggregateDataSetIdentifier -> 174
@@ -441,8 +443,8 @@ gmd:handlingDescription -> 137
 function -> 132
 gmd:plannedAvailableDateTime -> 129
 gmd:MD_ImageDescription -> 129
-ns5:UnitDefinition -> 118
-ns5:name -> 118
+gml:UnitDefinition -> 118
+gml:name -> 118
 thelayid -> 110
 numthlay -> 110
 cntperp -> 108
@@ -468,7 +470,7 @@ gco:Distance -> 79
 resdesc -> 75
 attrdomv -> 75
 gmd:EX_GeographicDescription -> 73
-ns5:BaseUnit -> 71
+gml:BaseUnit -> 71
 srv:serviceTypeVersion -> 65
 gmd:dataset -> 65
 metrd -> 65
@@ -530,7 +532,7 @@ tempkt -> 36
 horizpar -> 36
 gmi:algorithm -> 35
 gmi:LE_Algorithm -> 35
-ns5:description -> 34
+gml:description -> 34
 source -> 33
 crossref -> 33
 rdom -> 33
@@ -538,7 +540,7 @@ rdommin -> 33
 rdommax -> 33
 attrunit -> 33
 platfsnm -> 32
-ns5:Anchor -> 30
+gml:Anchor -> 30
 srv:DCP -> 30
 srv:DCPList -> 30
 gmd:locale -> 29
@@ -635,7 +637,7 @@ edom -> 4
 edomv -> 4
 edomvd -> 4
 edomvds -> 4
-ns5:MX_ScopeCode -> 3
+gml:MX_ScopeCode -> 3
 metac -> 3
 campaign -> 3
 rpIndName -> 3
@@ -698,8 +700,8 @@ descKeys -> 2
 metfrd -> 2
 formverd -> 2
 formspec -> 2
-ns5:Point -> 1
-ns5:pos -> 1
+gml:Point -> 1
+gml:pos -> 1
 gmd:DQ_NonQuantitativeAttributeAccuracy -> 1
 gmd:DQ_TopologicalConsistency -> 1
 indspref -> 1

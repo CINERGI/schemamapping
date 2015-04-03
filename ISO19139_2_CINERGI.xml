@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- note-- most of the content in gmi:MI_Metadata records is actually in the same gmd: namespace
+as gmd:MD_Metadata, so the mapping is the same. for now gmi: namespace content is 'extras' -->
 <gmd:MD_Metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gco="http://www.isotc211.org/2005/gco"
    xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gmx="http://www.isotc211.org/2005/gmx"
    xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
-   xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink"
    xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd">
-<!--   http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd
--->   
+   <!--   http://schemas.opengis.net/csw/2.0.2/profiles/apiso/1.0.0/apiso.xsd
+-->
    <gmd:fileIdentifier>
       <gco:CharacterString>$.primaryKey</gco:CharacterString>
    </gmd:fileIdentifier>
@@ -22,11 +24,12 @@
    <gmd:hierarchyLevelName>
       <gco:CharacterString>$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:hierarchyLevelName'}.keywords.keyword</gco:CharacterString>
    </gmd:hierarchyLevelName>
-   <gmd:contact>  
+   <gmd:contact>
       <!--to XML: for each $..metadataContact.agents.{} -->
       <!-- from JSON group agents by role -->
       <gmd:CI_ResponsibleParty>
-         <gmd:individualName>  <!-- optional: group all individuals with same org, contactInfo and role into one personName array -->
+         <gmd:individualName>
+            <!-- optional: group all individuals with same org, contactInfo and role into one personName array -->
             <gco:CharacterString>$.metadataProperties.metadataContact.agents[].personName[]</gco:CharacterString>
          </gmd:individualName>
          <gmd:organisationName>
@@ -39,10 +42,12 @@
             <gmd:CI_Contact>
                <gmd:phone>
                   <gmd:CI_Telephone>
-                     <gmd:voice>  <!-- group all voice numbers into one voicePhoneNumber array -->
+                     <gmd:voice>
+                        <!-- group all voice numbers into one voicePhoneNumber array -->
                         <gco:CharacterString>$.metadataProperties.metadataContact.agents[].voicePhoneNumber[]</gco:CharacterString>
                      </gmd:voice>
-                     <gmd:facsimile>  <!-- group all facsimile numbers into one faxPhoneNumber array -->
+                     <gmd:facsimile>
+                        <!-- group all facsimile numbers into one faxPhoneNumber array -->
                         <gco:CharacterString>$.metadataProperties.metadataContact.agents[].faxPhoneNumber[]</gco:CharacterString>
                      </gmd:facsimile>
                   </gmd:CI_Telephone>
@@ -68,52 +73,55 @@
                      <gmd:electronicMailAddress>$.metadataProperties.metadataContact.agents[].contactEmail[]</gmd:electronicMailAddress>
                   </gmd:CI_Address>
                </gmd:address>
-               <gmd:onlineResource> <!-- $.metadataProperties.metadataContact.agents[].contactLink[] -->
+               <gmd:onlineResource>
+                  <!-- $.metadataProperties.metadataContact.agents[].agentLink[] -->
                   <gmd:CI_OnlineResource>
-                     <gmd:linkage>$.metadataProperties.metadataContact.agents[].contactLink[].linkURL</gmd:linkage>
-                     <gmd:protocol>$.metadataProperties.metadataContact.agents[].contactLink[].linkOverlayAPILabel.</gmd:protocol>
-                     <gmd:applicationProfile>$.metadataProperties.metadataContact.agents[].contactLink[].linkProfileLabel</gmd:applicationProfile>
-                     <gmd:name>$.metadataProperties.metadataContact.agents[].contactLink[].linkTitle</gmd:name>
-                     <gmd:description>$.metadataProperties.metadataContact.agents[].contactLink[].linkDescription</gmd:description>
+                     <gmd:linkage>$.metadataProperties.metadataContact.agents[].agentLink[].linkURL</gmd:linkage>
+                     <gmd:protocol>$.metadataProperties.metadataContact.agents[].agentLink[].linkOverlayAPILabel.</gmd:protocol>
+                     <gmd:applicationProfile>$.metadataProperties.metadataContact.agents[].agentLink[].linkProfileLabel</gmd:applicationProfile>
+                     <gmd:name>$.metadataProperties.metadataContact.agents[].agentLink[].linkTitle</gmd:name>
+                     <gmd:description>$.metadataProperties.metadataContact.agents[].agentLink[].linkDescription</gmd:description>
                      <gmd:function>
-                        <gmd:CI_OnLineFunctionCode codeList="$.metadataProperties.metadataContact.agents[].contactLink[].linkRelations[].relVocabularyURI" 
-                           codeListValue="$.metadataProperties.metadataContact.agents[].contactLink[].linkRelations[].relURI" 
-                           codeSpace="$.metadataProperties.metadataContact.agents[].contactLink[].linkRelations[].relCodespace">
-                           $.metadataProperties.metadataContact.agents[].contactLink[].linkRelations[].relLabel
+                        <gmd:CI_OnLineFunctionCode codeList="$.metadataProperties.metadataContact.agents[].agentLink[].linkRelations[].relVocabularyURI" codeListValue="$.metadataProperties.metadataContact.agents[].agentLink[].linkRelations[].relURI" codeSpace="$.metadataProperties.metadataContact.agents[].agentLink[].linkRelations[].relCodespace">
+                           $.metadataProperties.metadataContact.agents[].agentLink[].linkRelations[].relLabel
                         </gmd:CI_OnLineFunctionCode>
                      </gmd:function>
                   </gmd:CI_OnlineResource>
                </gmd:onlineResource>
                <gmd:hoursOfService>
-                  <gco:CharacterString>concat in $.metadataProperties.metadataContact.agents[].contactInformation</gco:CharacterString>
+                  <gco:CharacterString>concat in $.metadataProperties.metadataContact.agents[].agentInformation</gco:CharacterString>
                </gmd:hoursOfService>
                <gmd:contactInstructions>
-                  <gco:CharacterString>concat in $.metadataProperties.metadataContact.agents[].contactInformation</gco:CharacterString>
+                  <gco:CharacterString>concat in $.metadataProperties.metadataContact.agents[].agentInformation</gco:CharacterString>
                </gmd:contactInstructions>
             </gmd:CI_Contact>
          </gmd:contactInfo>
          <gmd:role>
-            <gmd:CI_RoleCode codeList="$.metadataProperties.metadataContact.agentRoleVocabularyURI" 
-               codeListValue="$.metadataProperties.metadataContact.agentRoleURI" 
-               codeSpace="$.metadataProperties.metadataContact.agentRoleCodespace">
+            <gmd:CI_RoleCode codeList="$.metadataProperties.metadataContact.agentRoleVocabularyURI" codeListValue="$.metadataProperties.metadataContact.agentRoleURI" codeSpace="$.metadataProperties.metadataContact.agentRoleCodespace">
                $.metadataProperties.metadataContact.agentRoleLabel</gmd:CI_RoleCode>
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
-   <!-- EXAMPLE for hierarchical organization names in JSON:
+   <!-- EXAMPLE for hierarchical organization names in JSON (commonly seen in NOAA metadata):
       given an organization name like 'parent1 >> parent2 >> org' 
-   Also includes example of mapping for  gmx:Anchor  -->
+   Also includes example of mapping for  gmx:Anchor  
+   Pattern for gmx:Anchor is that element content is the Name or Label property, and the href goes in the 
+   URI with the same key/element name stem. If don't have Name and URI elements for the ISO19139 CharacterSTring
+   content that the Anchor is used for, could use encoding of an html anchor <a> tag. 
+   e.g. "<a href= the xlink:href content>anchor content here</a>"  as the JSON string value    
+   NOAA metadata uses a lot of Anchor elements in various places, it always is a possible substitution for 
+   gco:CharacterString -->
    <gmd:contact xlink:title="leaf full name">
       <gmd:CI_ResponsibleParty>
-         <gmd:organisationName> 
-   <!-- 'expanded' means abbreviations are expanded to full preferred name for organization -->
-            <gmx:Anchor xlink:href="$.metadataProperties.metadataContact.agents[].organizationURI[]">             $.metadataProperties.metadataContact.agents[].organizationName[]
-   </gmx:Anchor>
-<!--            <gco:CharacterString>orgExpanded</gco:CharacterString>
--->         </gmd:organisationName>
+         <gmd:organisationName>
+            <!-- 'expanded' means abbreviations are expanded to full preferred name for organization -->
+            <gmx:Anchor xlink:href="$.metadataProperties.metadataContact.agents[].organizationURI[]">
+               $.metadataProperties.metadataContact.agents[].organizationName[] </gmx:Anchor>
+            <!--            <gco:CharacterString>orgExpanded</gco:CharacterString>
+-->
+         </gmd:organisationName>
          <gmd:role>
-            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
-               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84" codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
@@ -123,12 +131,11 @@
             <gco:CharacterString>uri3 here</gco:CharacterString>
          </gmd:organisationName>
          <gmd:role>
-            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
-               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84" codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
-   <gmd:contact  xlink:title="parent URI" >
+   <gmd:contact xlink:title="parent URI">
       <gmd:CI_ResponsibleParty>
          <gmd:organisationName>
             <gco:CharacterString>uri1 here</gco:CharacterString>
@@ -136,7 +143,7 @@
          <gmd:role gco:nilReason="inapplicable"/>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
-   <gmd:contact  xlink:title="parent URI">
+   <gmd:contact xlink:title="parent URI">
       <gmd:CI_ResponsibleParty>
          <gmd:organisationName>
             <gco:CharacterString>uri2 here</gco:CharacterString>
@@ -150,23 +157,21 @@
             <gco:CharacterString>parent1 >> parent2 >> org</gco:CharacterString>
          </gmd:organisationName>
          <gmd:role>
-            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
-               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84" codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
-    <gmd:contact xlink:title="full name expanded">
+   <gmd:contact xlink:title="full name expanded">
       <gmd:CI_ResponsibleParty>
          <gmd:organisationName>
             <gco:CharacterString>parent1expanded >> parent2expanded >> orgexpanded</gco:CharacterString>
          </gmd:organisationName>
          <gmd:role>
-            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84"
-               codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>            
+            <gmd:CI_RoleCode codeList="https://www.sciencebase.gov/vocab/category/4f4e475ce4b07f02db47de84" codeListValue="Point Of Contact">Point Of Contact</gmd:CI_RoleCode>
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gmd:contact>
-<!-- end example -->
+   <!-- end example -->
 
    <gmd:dateStamp>
       <gco:DateTime>$.metadataProperties.metadataUpdateDate (in YYYY-MM-DDThh:mm:ss format 'Z' for
@@ -186,10 +191,12 @@
       <gmd:MD_DataIdentification>
          <gmd:citation>
             <gmd:CI_Citation>
-               <gmd:title> <!--  first token in $..resourceTitle array -->
+               <gmd:title>
+                  <!--  first token in $..resourceTitle array -->
                   <gco:CharacterString>$.resourceDocumentation.resourceTitle[0]</gco:CharacterString>
                </gmd:title>
-               <gmd:alternateTitle> <!-- alternate titles are addiitional elements in the $..resourceTitle array -->
+               <gmd:alternateTitle>
+                  <!-- alternate titles are addiitional elements in the $..resourceTitle array -->
                   <gco:CharacterString>$.resourceDocumentation.resourceTitle[1..]</gco:CharacterString>
                </gmd:alternateTitle>
                <gmd:date>
@@ -198,10 +205,7 @@
                         <gco:DateTime>$.resourceDocumentation.citationDates[].dateTime</gco:DateTime>
                      </gmd:date>
                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode 
-                           codeList="$.resourceDocumentation.citationDates[].dateTypeVocabularyURI" 
-                           codeListValue="$.resourceDocumentation.citationDates[].dateTypeURI" 
-                           codeSpace="$.resourceDocumentation.citationDates[].dateTypeCodespace">
+                        <gmd:CI_DateTypeCode codeList="$.resourceDocumentation.citationDates[].dateTypeVocabularyURI" codeListValue="$.resourceDocumentation.citationDates[].dateTypeURI" codeSpace="$.resourceDocumentation.citationDates[].dateTypeCodespace">
                            $.resourceDocumentation.citationDates[].dateTypeLabel</gmd:CI_DateTypeCode>
                      </gmd:dateType>
                   </gmd:CI_Date>
@@ -217,25 +221,32 @@
                   <gco:CharacterString>concatenate in $.resourceDocumentation.recommendedCitation</gco:CharacterString>
                </gmd:edition>
                <gmd:editionDate>
-                  <gco:DateTime>concatenate as string in $.resourceDocumentation.recommendedCitation</gco:DateTime>
+                  <gco:DateTime>concatenate as string in
+                     $.resourceDocumentation.recommendedCitation</gco:DateTime>
                </gmd:editionDate>
                <gmd:identifier>
                   <!-- resourceIdentifier -->
                   <gmd:MD_Identifier>
-                     <gmd:authority xlink:href="$.resourceDocumentation.resourceIdentifier[identifierLabel='citation.identifier.authority.href'].resourceAuthorityURI">
+                     <gmd:authority
+                        xlink:href="$.resourceDocumentation.resourceIdentifier[identifierLabel='citation.identifier.authority.href'].resourceAuthorityURI">
                         <gmd:CI_Citation>
                            <gmd:title>
                               <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.identifierLabel  (concat gmd:title and gmd:date)</gco:CharacterString>
                            </gmd:title>
-                           <gmd:date>concat date and dateTypeCodeValue with title in the identifierLabel key</gmd:date>
+                           <gmd:date>concat date and dateTypeCodeValue with title in the
+                              identifierLabel key</gmd:date>
                            <gmd:identifier>
                               <gmd:MD_Identifier>
-                                 <gmd:code>$.resourceDocumentation.resourceIdentifier[identifierLabel= (concat gmd:title and gmd:date)].resourceAuthorityURI</gmd:code>
+                                 <gmd:code>
+                                    <gco:CharacterString>$.resourceDocumentation.resourceIdentifier[identifierLabel=
+                                       (concat gmd:title and gmd:date)].resourceAuthorityURI</gco:CharacterString>
+                                 </gmd:code>
                               </gmd:MD_Identifier>
                            </gmd:identifier>
                         </gmd:CI_Citation>
                      </gmd:authority>
-                     <gmd:code> <!-- if gmd:authority is missing, then set identiferLabel = 'citation.identifier.code'  -->
+                     <gmd:code>
+                        <!-- if gmd:authority is missing, then set identiferLabel = 'citation.identifier.code'  -->
                         <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.resourceURI</gco:CharacterString>
                      </gmd:code>
                   </gmd:MD_Identifier>
@@ -245,12 +256,12 @@
                      <!-- handle gmd:authority and gmd:code same as for gmd:MD_Identifier -->
                      <gmd:authority>
                         <gmd:CI_Citation>
-                           <gmd:title></gmd:title>
-                           <gmd:date></gmd:date>
+                           <gmd:title/>
+                           <gmd:date/>
                         </gmd:CI_Citation>
                      </gmd:authority>
                      <gmd:code>
-                        <gco:CharacterString></gco:CharacterString>
+                        <gco:CharacterString/>
                      </gmd:code>
                      <gmd:codeSpace>
                         <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.identifierType</gco:CharacterString>
@@ -267,8 +278,7 @@
                   </gmd:CI_ResponsibleParty>
                </gmd:citedResponsibleParty>
                <gmd:presentationForm>
-                  <gmd:CI_PresentationFormCode codeList="$.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywordTypeURI" 
-                     codeListValue="$.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywords.keyword[]">
+                  <gmd:CI_PresentationFormCode codeList="$.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywordTypeURI" codeListValue="$.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywords.keyword[]">
                      $.resourceDocumentation.resourceIndexTerms[keywordTypeLabel='gmd:CI_PresentationFormCode'].keywords.keyword[]
                                     </gmd:CI_PresentationFormCode>
                </gmd:presentationForm>
@@ -303,10 +313,12 @@
                <gmd:collectiveTitle>
                   <gco:CharacterString>concatenate as string in $.resourceDocumentation.recommendedCitation</gco:CharacterString>
                </gmd:collectiveTitle>
-               <gmd:ISBN> <!-- set "$.resourceDocumentation.resourceIdentifier.identifierType and identifierLabel = 'ISBN' -->
+               <gmd:ISBN>
+                  <!-- set "$.resourceDocumentation.resourceIdentifier.identifierType and identifierLabel = 'ISBN' -->
                   <gco:CharacterString>"$.resourceDocumentation.resourceIdentifier[identifierLabel='ISBN'].resourceURI</gco:CharacterString>
                </gmd:ISBN>
-               <gmd:ISSN> <!-- set "$.resourceDocumentation.resourceIdentifier.identifierType and identifierLabel = 'ISSN' -->
+               <gmd:ISSN>
+                  <!-- set "$.resourceDocumentation.resourceIdentifier.identifierType and identifierLabel = 'ISSN' -->
                   <gco:CharacterString>"$.resourceDocumentation.resourceIdentifier[identifierLabel='ISSN'].resourceURI</gco:CharacterString>
                </gmd:ISSN>
             </gmd:CI_Citation>
@@ -314,24 +326,124 @@
          <gmd:abstract>
             <gco:CharacterString>$.resourceDocumentation.resourceDescription</gco:CharacterString>
          </gmd:abstract>
+         <gmd:purpose>
+            <gco:CharacterString></gco:CharacterString>
+         </gmd:purpose>
+         <gmd:credit>
+            <gco:CharacterString></gco:CharacterString>
+         </gmd:credit>
+         <gmd:status>
+            <gmd:MD_ProgressCode codeList="" 
+               codeListValue="" 
+               codeSpace="">
+               
+            </gmd:MD_ProgressCode>
+         </gmd:status>
+         <gmd:pointOfContact>
+            <gmd:CI_ResponsibleParty>
+               <gmd:individualName>
+                  <!-- optional: group all individuals with same org, contactInfo and role into one personName array -->
+                  <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].personName[]</gco:CharacterString>
+               </gmd:individualName>
+               <gmd:organisationName>
+                  <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].organizationName[]</gco:CharacterString>
+               </gmd:organisationName>
+               <gmd:positionName>
+                  <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].personPosition</gco:CharacterString>
+               </gmd:positionName>
+               <gmd:contactInfo>
+                  <gmd:CI_Contact>
+                     <gmd:phone>
+                        <gmd:CI_Telephone>
+                           <gmd:voice>
+                              <!-- group all voice numbers into one voicePhoneNumber array -->
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].voicePhoneNumber[]</gco:CharacterString>
+                           </gmd:voice>
+                           <gmd:facsimile>
+                              <!-- group all facsimile numbers into one faxPhoneNumber array -->
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].faxPhoneNumber[]</gco:CharacterString>
+                           </gmd:facsimile>
+                        </gmd:CI_Telephone>
+                     </gmd:phone>
+                     <gmd:address>
+                        <gmd:CI_Address>
+                           <gmd:deliveryPoint>
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].contactaddress.deliveryPoint</gco:CharacterString>
+                           </gmd:deliveryPoint>
+                           <gmd:city>
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].contactaddress.city</gco:CharacterString>
+                           </gmd:city>
+                           <gmd:administrativeArea>
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].contactaddress.administrativeArea</gco:CharacterString>
+                           </gmd:administrativeArea>
+                           <gmd:postalCode>
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].contactaddress.postalCode</gco:CharacterString>
+                           </gmd:postalCode>
+                           <gmd:country>
+                              <gco:CharacterString>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].contactaddress.country</gco:CharacterString>
+                           </gmd:country>
+                           <!-- group all e-mail addresses for the contact into one contactEmail array -->
+                           <gmd:electronicMailAddress>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].contactEmail[]</gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                     </gmd:address>
+                     <gmd:onlineResource>
+                        <!-- $.metadataProperties.metadataContact.agents[].agentLink[] -->
+                        <gmd:CI_OnlineResource>
+                           <gmd:linkage>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkURL</gmd:linkage>
+                           <gmd:protocol>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkOverlayAPILabel.</gmd:protocol>
+                           <gmd:applicationProfile>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkProfileLabel</gmd:applicationProfile>
+                           <gmd:name>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkTitle</gmd:name>
+                           <gmd:description>$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkDescription</gmd:description>
+                           <gmd:function>
+                              <gmd:CI_OnLineFunctionCode codeList="$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkRelations[].relVocabularyURI" 
+                                 codeListValue="$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkRelations[].relURI" 
+                                 codeSpace="$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkRelations[].relCodespace">
+                                 $$.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentLink[].linkRelations[].relLabel
+                              </gmd:CI_OnLineFunctionCode>
+                           </gmd:function>
+                        </gmd:CI_OnlineResource>
+                     </gmd:onlineResource>
+                     <gmd:hoursOfService>
+                        <gco:CharacterString>concat in $.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentInformation</gco:CharacterString>
+                     </gmd:hoursOfService>
+                     <gmd:contactInstructions>
+                        <gco:CharacterString>concat in $.resourceDocumentation.resourceContacts[].resourceContactAgents[].agentInformation</gco:CharacterString>
+                     </gmd:contactInstructions>
+                  </gmd:CI_Contact>
+               </gmd:contactInfo>
+               <gmd:role>
+                  <gmd:CI_RoleCode codeList="$.resourceDocumentation.resourceContacts[].resourceContactRoleVocabularyURI" 
+                     codeListValue="$.resourceDocumentation.resourceContacts[].resourceContactRoleURI" 
+                     codeSpace="$.resourceDocumentation.resourceContacts[].resourceContactRoleCodespace">
+                     $.resourceDocumentation.resourceContacts[].resourceContactRoleLabel</gmd:CI_RoleCode>
+               </gmd:role>
+            </gmd:CI_ResponsibleParty>
+         </gmd:pointOfContact>
+  <gmd:graphicOverview>
+     <gmd:MD_BrowseGraphic>
+        <gmd:fileName></gmd:fileName>
+     </gmd:MD_BrowseGraphic>
+  </gmd:graphicOverview>
+
          <gmd:descriptiveKeywords>
             <gmd:MD_Keywords>
-               <gmd:keyword> <!-- group on KeywordTypeLabel or KeywordTypeURI  -->
+               <gmd:keyword>
+                  <!-- group on KeywordTypeLabel or KeywordTypeURI  -->
                   <gco:CharacterString>$.resourceDocumentation.resourceIndexTerms[].keywords[].keyword</gco:CharacterString>
                </gmd:keyword>
                <gmd:type>
-                  <gmd:MD_KeywordTypeCode codeList="$.resourceDocumentation.resourceIndexTerms[].keywordTypeVocabularyURI" 
-                     codeListValue="$.resourceDocumentation.resourceIndexTerms[].keywordTypeURI"
-                     codeSpace="$.resourceDocumentation.resourceIndexTerms[].keywordTypeCodespace">
+                  <gmd:MD_KeywordTypeCode codeList="$.resourceDocumentation.resourceIndexTerms[].keywordTypeVocabularyURI" codeListValue="$.resourceDocumentation.resourceIndexTerms[].keywordTypeURI" codeSpace="$.resourceDocumentation.resourceIndexTerms[].keywordTypeCodespace">
                      $.resourceDocumentation.resourceIndexTerms[].keyworTypeLabel</gmd:MD_KeywordTypeCode>
                </gmd:type>
-               <gmd:thesaurusName xlink:href="$.resourceDocumentation.resourceIndexTerms[].keywordSourceURI
+               <gmd:thesaurusName
+                  xlink:href="$.resourceDocumentation.resourceIndexTerms[].keywordSourceURI
                   OR UUID for full CI_Citation element translated to JSON in the extras section">
                   <gmd:CI_Citation>
                      <gmd:title>
                         <gco:CharacterString>$.resourceDocumentation.resourceIndexTerms[].keywordSourceLabel</gco:CharacterString>
                      </gmd:title>
-                     <gmd:date></gmd:date>  <!-- other citation content should be loaded in extras; assign an ID and reference from here -->
+                     <gmd:date/>
+                     <!-- other citation content should be loaded in extras; assign an ID and reference from here -->
                      <gmd:identifier>
                         <gmd:MD_Identifier>
                            <gmd:code>
@@ -343,37 +455,54 @@
                </gmd:thesaurusName>
             </gmd:MD_Keywords>
          </gmd:descriptiveKeywords>
+
+         <gmd:resourceSpecificUsage></gmd:resourceSpecificUsage>
+         <gmd:aggregationInfo></gmd:aggregationInfo>
          <gmd:language>
             <gco:CharacterString>$.resourceDocumentation.resourceLanguages[].ISO639code</gco:CharacterString>
          </gmd:language>
+         <gmd:characterSet /> <!-- not processed; this comes from the XML header line in xml docs; generate characterset dynamically on 
+         output marshaling based on what charset is being used.-->
+         <gmd:topicCategory>
+            <gmd:MD_TopicCategoryCode>$.resourceDescription.resourceIndexTerms.{keywordTypeLabel='gmd:topicCategory'}.keywords.keyword</gmd:MD_TopicCategoryCode>
+         </gmd:topicCategory>
+   
+         <gmd:environmentDescription></gmd:environmentDescription>
          <gmd:extent xlink:href="$.resourceDocumentation.geographicExtent.referencedExtentURI">
             <gmd:EX_Extent>
                <gmd:description>
-                  <gco:CharacterString>$.resourceDocumentation.geographicExtent.extentStatement & ', referencedExtentLabel:'&amp;
-                     $.resourceDocumentation.geographicExtent.referencedExtentLabel</gco:CharacterString>
+                  <gco:CharacterString>concat($.resourceDocumentation.geographicExtent.extentStatement, ', referencedExtentLabel:',
+                     $.resourceDocumentation.geographicExtent.referencedExtentLabel)
+                  </gco:CharacterString>
                </gmd:description>
                <gmd:geographicElement>
                   <gmd:EX_GeographicDescription>
                      <gmd:extentTypeCode>
-                        <gco:Boolean>false</gco:Boolean>
+                        <gco:Boolean>if (true) then
+                           $.resourceDocumentation.geographicExtent.extentType = 'within', else
+                           ..extentType = 'exclusion'</gco:Boolean>
                      </gmd:extentTypeCode>
-                     <gmd:geographicIdentifier xlink:href="$.resourceDocumentation.geographicExtent.extentGazetteerURI">
+                     <gmd:geographicIdentifier
+                        xlink:href="$.resourceDocumentation.geographicExtent.extentReference.referencedExtentURI">
                         <gmd:MD_Identifier>
                            <gmd:authority>
                               <gmd:CI_Citation>
                                  <gmd:title>
                                     <gco:CharacterString>$.resourceDocumentation.geographicExtent.extentReference.extentGazetteerName</gco:CharacterString>
                                  </gmd:title>
-                                 <gmd:date></gmd:date>
+                                 <gmd:date/>
                                  <gmd:identifier>
                                     <gmd:MD_Identifier>
                                        <gmd:authority>
+                                          <!-- citation identifier authority is not captured by the CINERGI metadata object; put in extras -->
                                           <gmd:CI_Citation>
-                                             <gmd:title></gmd:title>
-                                             <gmd:date></gmd:date>
+                                             <gmd:title/>
+                                             <gmd:date/>
                                           </gmd:CI_Citation>
                                        </gmd:authority>
-                                       <gmd:code>$.resourceDocumentation.geographicExtent.extentGazetteerURI</gmd:code>
+                                       <gmd:code>
+                                          <gco:CharacterString>$.resourceDocumentation.geographicExtent.extentReference.extentGazetteerURI</gco:CharacterString>
+                                       </gmd:code>
                                     </gmd:MD_Identifier>
                                  </gmd:identifier>
                               </gmd:CI_Citation>
@@ -387,25 +516,42 @@
                </gmd:geographicElement>
                <gmd:geographicElement>
                   <gmd:EX_GeographicBoundingBox>
-                     <gmd:westBoundLongitude></gmd:westBoundLongitude>
-                     <gmd:eastBoundLongitude></gmd:eastBoundLongitude>
-                     <gmd:southBoundLatitude></gmd:southBoundLatitude>
-                     <gmd:northBoundLatitude></gmd:northBoundLatitude>
+                     <gmd:westBoundLongitude>
+                        <gco:Decimal>$.resourceDocumentation.geographicExtent.boundingBoxWGS84.westBoundLongitude</gco:Decimal>
+                     </gmd:westBoundLongitude>
+                     <gmd:eastBoundLongitude>
+                        <gco:Decimal>$.resourceDocumentation.geographicExtent.boundingBoxWGS84.eastBoundLongitude</gco:Decimal>
+                     </gmd:eastBoundLongitude>
+                     <gmd:southBoundLatitude>
+                        <gco:Decimal>$.resourceDocumentation.geographicExtent.boundingBoxWGS84.southBoundLatitude</gco:Decimal>
+                     </gmd:southBoundLatitude>
+                     <gmd:northBoundLatitude>
+                        <gco:Decimal>$.resourceDocumentation.geographicExtent.boundingBoxWGS84.northBoundLatitude</gco:Decimal>
+                     </gmd:northBoundLatitude>
                   </gmd:EX_GeographicBoundingBox>
                </gmd:geographicElement>
                <gmd:geographicElement>
-                  <gmd:EX_BoundingPolygon>  <!-- convert geometry to GeoJSON, calculate a BBox and put in
+                  <gmd:EX_BoundingPolygon>
+                     <!-- convert geometry to GeoJSON, calculate a BBox and put in
                   $.resourceDocumentation.geographicExtent.boundingBoxWGS84 if there isn't an 
                   gmd:EX_GeographicBoundingBox in the metadata record. Note that the data type is GM_AbstractGeometry,
                   so technically there could be any gml geometry in the gmd:polygon element... -->
-                     <gmd:polygon></gmd:polygon>
+                     <gmd:polygon>
+                        <!-- put the geometry in $.resourceDocumentation.geographicExtent.geoJSONgeometry. (geoJSON object here) -->
+                     </gmd:polygon>
                   </gmd:EX_BoundingPolygon>
                </gmd:geographicElement>
                <gmd:verticalElement>
                   <gmd:EX_VerticalExtent>
-                     <gmd:minimumValue></gmd:minimumValue>
-                     <gmd:maximumValue></gmd:maximumValue>
-                     <gmd:verticalCRS>
+                     <gmd:minimumValue>
+                        <gco:Real>$.resourceDocumentation.geographicExtent.verticalExtent.verticalMinimum</gco:Real>
+                     </gmd:minimumValue>
+                     <gmd:maximumValue>
+                        <gco:Real>$.resourceDocumentation.geographicExtent.verticalExtent.verticalMaximum</gco:Real>
+                     </gmd:maximumValue>
+                     <gmd:verticalCRS
+                        xlink:href="$.resourceDocumentation.geographicExtent.verticalExtent.verticalCRS-URI">
+                        <!-- other vertical extent content goes in extras -->
                      </gmd:verticalCRS>
                   </gmd:EX_VerticalExtent>
                </gmd:verticalElement>
@@ -417,19 +563,23 @@
                   <gmd:EX_TemporalExtent>
                      <gmd:extent>
                         <gml:TimePeriod gml:id="t27">
-                           <gml:beginPosition>2014-07-11T12:00:00Z </gml:beginPosition>
-                           <gml:endPosition> 2014-07-11T14:00:00Z </gml:endPosition>
+                           <gml:beginPosition>$.resourceDocumentation.temporalExtents[].temporalExtentBegin</gml:beginPosition>
+                           <gml:endPosition>$.resourceDocumentation.temporalExtents[].temporalExtentEnd</gml:endPosition>
+                           <!-- other gml:TimePeriod content is extras -->
                         </gml:TimePeriod>
                      </gmd:extent>
                   </gmd:EX_TemporalExtent>
                </gmd:temporalElement>
             </gmd:EX_Extent>
          </gmd:extent>
-
+         <gmd:supplementalInformation>
+            <gco:CharacterString>concat in $.resourceDocumentation.resourceDescription</gco:CharacterString>
+         </gmd:supplementalInformation>
       </gmd:MD_DataIdentification>
    </gmd:identificationInfo>
 
    <gmd:contentInfo>
+      <!-- mapping still to do -->
       <gmd:MD_FeatureCatalogueDescription>
          <gmd:includedWithDataset>
             <gco:Boolean>false</gco:Boolean>
@@ -460,98 +610,325 @@
          </gmd:contentType>
       </gmd:MD_ImageDescription>
    </gmd:contentInfo>
-   <gmd:distributionInfo>
+   <gmd:contentInfo>
+      <!-- mapping still to do -->
+      <gmd:MD_CoverageDescription>
+         <gmd:attributeDescription>
+            <gco:RecordType></gco:RecordType>
+         </gmd:attributeDescription>
+         <gmd:contentType/>
+         <gmd:dimension>
+            <gmd:MD_RangeDimension>
+               <gmd:sequenceIdentifier>
+                  <gco:MemberName>
+                     <gco:aName>
+                        <gco:CharacterString></gco:CharacterString>
+                     </gco:aName>
+                     <gco:attributeType>
+                        <gco:TypeName>
+                           <gco:aName> <!-- data type for this member; this isthe name of an attribute or property in a 
+                           a content model -->
+                              <gco:CharacterString></gco:CharacterString>
+                           </gco:aName>
+                        </gco:TypeName>
+                     </gco:attributeType>
+                  </gco:MemberName>
+               </gmd:sequenceIdentifier>
+               <gmd:descriptor></gmd:descriptor>
+            </gmd:MD_RangeDimension>
+            
+         </gmd:dimension>
+         <gmd:dimension>
+            <gmd:MD_Band>  <!-- MD_Band is substitution for MD_RangeDimension, so inherits properties from 
+            that element; mapping to MongoMetadataObject is the same-->
+               <gmd:maxValue></gmd:maxValue>
+               <gmd:minValue></gmd:minValue>
+               <gmd:units></gmd:units>
+               
+               
+            </gmd:MD_Band>
+         </gmd:dimension>
+      </gmd:MD_CoverageDescription>
+   </gmd:contentInfo>
+   <gmd:contentInfo>
+      <!-- mapping still to do -->
+      <gmi:MI_CoverageDescription>
+         <gmd:attributeDescription/>
+         <gmd:contentType/>
+      </gmi:MI_CoverageDescription>
+   </gmd:contentInfo>
+
+
+   <gmd:distributionInfo>          <!-- this instance is for an offline resource in digital form -->
       <gmd:MD_Distribution>
-         <gmd:distributor>
+         <!-- if multiple formats, distributors and transferOptions are supplied, some guesswork is required to 
+            figure out the binding between them. The variety of possible ISO19139 encoding approaches that are 
+            possible is daunting -->
+         <gmd:distributionFormat>
+            <gmd:MD_Format>
+               <!-- if formatDistributor is populated, group on gmd:formatDistributor and create  
+            .$resourceDocumentation.resourceAccessOptions[] array element for that distributor.  
+            If only one distributor is specified, with one transferOptions or distributorTransferOptions, 
+            or one distribution order proces then the assumption is that all formats are associated with 
+            that distribution option. In the MongoMetadataObject, this translates to one distributor -->
+               <!-- if multiple gmd:distributionFormat and gmd:distributors are present, and there are 
+                  not gmd:formatDistributor elements to bind formats to distributors and transfer options, 
+                  then assume all formats are available from all distributors. -->
+               <gmd:name>
+                  <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalFileFormatName</gco:CharacterString>
+               </gmd:name>
+               <gmd:version/>
+               <gmd:amendmentNumber/>
+               <gmd:specification/>
+               <gmd:fileDecompressionTechnique/>
+               <gmd:formatDistributor> <!-- KISS assumption: only 11 occurrences in our current corpus
+                  so for now we can backburner handling this one. Normally would expect that if formatDistributor is populated, 
+               gmd:distributor should be empty, or should be the same distributor (perhaps linked to this by 
+               href with the inline description only appearing once; this might be the case if multiple formats are 
+               specified with the gmd:formatDistributor element binding formats to distributors. -->
+                  <gmd:MD_Distributor>
+                     <gmd:distributorContact>
+                        <gmd:CI_ResponsibleParty>
+                           <gmd:individualName>
+                              <!-- optional: group all individuals with same org, contactInfo and role into one personName array -->
+                              <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.personName[]</gco:CharacterString>
+                           </gmd:individualName>
+                           <gmd:organisationName>
+                              <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.organizationName[]</gco:CharacterString>
+                           </gmd:organisationName>
+                           <gmd:positionName>
+                              <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.personPosition</gco:CharacterString>
+                           </gmd:positionName>
+                           <gmd:contactInfo>
+                              <gmd:CI_Contact>
+                                 <gmd:phone>
+                                    <gmd:CI_Telephone>
+                                       <gmd:voice>
+                                          <!-- group all voice numbers into one voicePhoneNumber array -->
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].voicePhoneNumber[]</gco:CharacterString>
+                                       </gmd:voice>
+                                       <gmd:facsimile>
+                                          <!-- group all facsimile numbers into one faxPhoneNumber array -->
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].faxPhoneNumber[]</gco:CharacterString>
+                                       </gmd:facsimile>
+                                    </gmd:CI_Telephone>
+                                 </gmd:phone>
+                                 <gmd:address>
+                                    <gmd:CI_Address>
+                                       <gmd:deliveryPoint>
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].contactaddress.deliveryPoint</gco:CharacterString>
+                                       </gmd:deliveryPoint>
+                                       <gmd:city>
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].contactaddress.city</gco:CharacterString>
+                                       </gmd:city>
+                                       <gmd:administrativeArea>
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].contactaddress.administrativeArea</gco:CharacterString>
+                                       </gmd:administrativeArea>
+                                       <gmd:postalCode>
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].contactaddress.postalCode</gco:CharacterString>
+                                       </gmd:postalCode>
+                                       <gmd:country>
+                                          <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].contactaddress.country</gco:CharacterString>
+                                       </gmd:country>
+                                       <!-- group all e-mail addresses for the contact into one contactEmail array -->
+                                       <gmd:electronicMailAddress>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].contactEmail[]</gmd:electronicMailAddress>
+                                    </gmd:CI_Address>
+                                 </gmd:address>
+                                 <gmd:onlineResource>
+                                    <!-- $.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[] -->
+                                    <gmd:CI_OnlineResource>
+                                       <gmd:linkage>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkURL</gmd:linkage>
+                                       <gmd:protocol>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkOverlayAPILabel.</gmd:protocol>
+                                       <gmd:applicationProfile>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkProfileLabel</gmd:applicationProfile>
+                                       <gmd:name>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkTitle</gmd:name>
+                                       <gmd:description>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkDescription</gmd:description>
+                                       <gmd:function
+                                          <gmd:CI_OnLineFunctionCode codeList="$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkRelations[].relVocabularyURI" 
+                                             codeListValue="$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkRelations[].relURI" 
+                                             codeSpace="$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkRelations[].relCodespace">
+                                             $.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentLink[].linkRelations[].relLabel
+                                          </gmd:CI_OnLineFunctionCode>
+                                       </gmd:function>
+                                    </gmd:CI_OnlineResource>
+                                 </gmd:onlineResource>
+                                 <gmd:hoursOfService>
+                                    <gco:CharacterString>concat in $.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentInformation</gco:CharacterString>
+                                 </gmd:hoursOfService>
+                                 <gmd:contactInstructions>
+                                    <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].distributor.distributorAgents[].agentInformation</gco:CharacterString>
+                                 </gmd:contactInstructions>
+                              </gmd:CI_Contact>
+                           </gmd:contactInfo>
+                           <gmd:role>
+                              <gmd:CI_RoleCode codeList="$.resourceDocumentation.resourceAccessOptions[N].distributor.agentRoleVocabularyURI" 
+                                 codeListValue="$.resourceDocumentation.resourceAccessOptions[N].distributor.agentRoleURI" 
+                                 codeSpace="$.resourceDocumentation.resourceAccessOptions[N].distributor.agentRoleCodespace">
+                                 $.resourceDocumentation.resourceAccessOptions[N].distributor.agentRoleLabel</gmd:CI_RoleCode>
+                           </gmd:role>
+                        </gmd:CI_ResponsibleParty>
+                     </gmd:distributorContact>
+                  </gmd:MD_Distributor>
+               </gmd:formatDistributor>
+            </gmd:MD_Format>
+         </gmd:distributionFormat>
+         <gmd:distributor> 
             <gmd:MD_Distributor>
-               <gmd:distributorContact gco:nilReason="missing"/>
-               <gmd:distributionOrderProcess>
-                  <gmd:MD_StandardOrderProcess>
+               <gmd:distributorContact/> 
+               <!-- NOTE -- encoding is like MD_Format.formatDistributor.MD_Distributor; 
+            for an offline distribution would expect that either gmd:formatDistributor xor gmd:distributor 
+         would be present-->
+               <gmd:distributionOrderProcess>  <!-- assume that present of this element indicates offline access  -->
+                  <gmd:MD_StandardOrderProcess> <!-- $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation -->
+                     <gmd:fees>
+                        <gco:CharacterString>
+                           concat into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation
+                        </gco:CharacterString>
+                     </gmd:fees>
                      <gmd:plannedAvailableDateTime>
-                        <gco:DateTime> 2014-11-22T15:33:01 </gco:DateTime>
+                        <gco:DateTime>  concat into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation
+                           with prefix "Planned available dateTime:"
+                        </gco:DateTime>
                      </gmd:plannedAvailableDateTime>
+                     <gmd:orderingInstructions>
+                        <gco:CharacterString>concat into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation
+                           for JSON to XML offlineAccess.orderinginformation content goes here.
+                        </gco:CharacterString>
+                     </gmd:orderingInstructions>
+                     <gmd:turnaround>
+                        <gco:CharacterString> concat into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation
+                        </gco:CharacterString>
+                     </gmd:turnaround>
                   </gmd:MD_StandardOrderProcess>
                </gmd:distributionOrderProcess>
-
+               <gmd:distributorFormat>
+                  <gmd:MD_Format> <!-- handle same as distributionFormat; assume format applies to all transfer options
+                  for this distributor-->
+                     <gmd:name></gmd:name>
+                     <gmd:version></gmd:version>
+                  </gmd:MD_Format>
+               </gmd:distributorFormat>
+               <gmd:distributorTransferOptions>
+                  <gmd:MD_DigitalTransferOptions>
+                     <gmd:unitsOfDistribution>
+                        <gco:CharacterString>if transferOption is gmd:offLine, then concat 
+                           into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation</gco:CharacterString>
+                     </gmd:unitsOfDistribution>
+                     <gmd:transferSize>
+                        <gco:Real> if transferOption is gmd:offLine, then concat 
+                           into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation</gco:Real>
+                     </gmd:transferSize>
+                     <gmd:offLine>  
+                        <gmd:MD_Medium>
+                           <gmd:name>
+                              <gmd:MD_MediumNameCode codeList="$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumNameVocabularyURI" 
+                                 codeListValue="$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumURI" 
+                                 codeSpace="$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumCodespace">
+                                 $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumName</gmd:MD_MediumNameCode>
+                           </gmd:name>
+                           <gmd:density>
+                              <gco:Real> concat into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation
+                              </gco:Real>
+                           </gmd:density>
+                           <gmd:densityUnits>
+                              <gco:CharacterString> concat into $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].orderingInformation
+                              </gco:CharacterString>
+                           </gmd:densityUnits>
+                           <gmd:mediumFormat>
+                              <gmd:MD_MediumFormatCode codeList="$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumFormatVocabularyURI" 
+                                 codeListValue="$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumFormatURI" 
+                                 codeSpace="$.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumFormatCodespace">
+                                 $.resourceDocumentation.resourceAccessOptions[N].offlineAccess[].physicalMediumFormatName
+                              </gmd:MD_MediumFormatCode>
+                           </gmd:mediumFormat>
+                           <gmd:mediumNote/>
+                        </gmd:MD_Medium>
+                     </gmd:offLine>
+                  </gmd:MD_DigitalTransferOptions>
+               </gmd:distributorTransferOptions>
             </gmd:MD_Distributor>
          </gmd:distributor>
-         <gmd:transferOptions>
-            <gmd:MD_DigitalTransferOptions>
-               <gmd:onLine>
-                  <gmd:CI_OnlineResource>
-                     <gmd:linkage>
-                        <gmd:URL>https://www.sciencebase.gov/catalog/item/4f4e49d6e4b07f02db5de6c7</gmd:URL>
-                     </gmd:linkage>
-                     <gmd:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                     </gmd:protocol>
-                     <gmd:applicationProfile>
-                        <gco:CharacterString>Web Browser</gco:CharacterString>
-                     </gmd:applicationProfile>
+      </gmd:MD_Distribution>
+   </gmd:distributionInfo>
+   
+   <gmd:distributionInfo>  <!-- service based and online file download distribution example -->
+      <gmd:MD_Distribution>
+         <gmd:distributor> <!-- group Formats and TransferOptions by distributor; options that 
+         apply to multiple distributors will be repeated in the JSON-->
+            <gmd:MD_Distributor>
+               <gmd:distributorContact> <!-- same as distributorContact in above example -->
+                  <gmd:CI_ResponsibleParty/>
+               </gmd:distributorContact>
+               <gmd:distributorFormat>  <!-- This element occurs 8211 times (about a quarter of 
+                  the records in corpus.  See distributionFormat example above. If multiple formats and multiple
+               TransferOptions, have to assume all formats available with all transfer options. 
+               expect multiple gmd:distributor elements referencing the same gmd:distributorContact
+               to indicate different Format-TransferOptions bindings-->
+                  <gmd:MD_Format>
                      <gmd:name>
-                        <gco:CharacterString>ScienceBase Item Summary Page</gco:CharacterString>
+                        <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[N].accessLinks[M].linkTargetResourceType</gco:CharacterString>
                      </gmd:name>
-                     <gmd:description>
-                        <gco:CharacterString>Link to the ScienceBase Item Summary page for the item described by this metadata record</gco:CharacterString>
-                     </gmd:description>
-                     <gmd:function>
-                        <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
-                     </gmd:function>
-                  </gmd:CI_OnlineResource>
-               </gmd:onLine>
-               <gmd:onLine>
-                  <gmd:CI_OnlineResource>
-                     <gmd:linkage>
-                        <gmd:URL>http://pubs.usgs.gov/bul/2094f/report.pdf</gmd:URL>
-                     </gmd:linkage>
-                     <gmd:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                     </gmd:protocol>
-                     <gmd:applicationProfile>
-                        <gco:CharacterString>Web Browser</gco:CharacterString>
-                     </gmd:applicationProfile>
-                     <gmd:name>
-                        <gco:CharacterString>PDF Download</gco:CharacterString>
-                     </gmd:name>
-                     <gmd:description>
-                        <gco:CharacterString>ScienceBase WebLink</gco:CharacterString>
-                     </gmd:description>
-                     <gmd:function>
-                        <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
-                     </gmd:function>
-                  </gmd:CI_OnlineResource>
-               </gmd:onLine>
-               <gmd:onLine>
-                  <gmd:CI_OnlineResource>
-                     <gmd:linkage>
-                        <gmd:URL>http://pubs.er.usgs.gov/publication/b2094F</gmd:URL>
-                     </gmd:linkage>
-                     <gmd:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                     </gmd:protocol>
-                     <gmd:applicationProfile>
-                        <gco:CharacterString>Web Browser</gco:CharacterString>
-                     </gmd:applicationProfile>
-                     <gmd:name>
-                        <gco:CharacterString>Web Site</gco:CharacterString>
-                     </gmd:name>
-                     <gmd:description>
-                        <gco:CharacterString>ScienceBase WebLink</gco:CharacterString>
-                     </gmd:description>
-                     <gmd:function>
-                        <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
-                     </gmd:function>
-                  </gmd:CI_OnlineResource>
-               </gmd:onLine>
-               <gmd:offLine>
-                  <gmd:MD_Medium>
-                     <gmd:density gco:nilReason="missing"/>
-                  </gmd:MD_Medium>
-               </gmd:offLine>
-            </gmd:MD_DigitalTransferOptions>
+                     <gmd:version>
+                        <gco:CharacterString>concat into 
+                           $.resourceDocumentation.resourceAccessOptions[N].accessLinks[M].linkTargetResourceType
+                        as suffix</gco:CharacterString>
+                     </gmd:version>
+                     <gmd:amendmentNumber>
+                        <gco:CharacterString>concat into 
+                           $.resourceDocumentation.resourceAccessOptions[N].accessLinks[M].linkTargetResourceType
+                           as suffix</gco:CharacterString>
+                     </gmd:amendmentNumber>
+                     <gmd:specification>
+                        <gco:CharacterString>concat into $.resourceDocumentation.resourceAccessOptions[N].accessLinks[M].linkDescription</gco:CharacterString>
+                     </gmd:specification>
+                     <gmd:fileDecompressionTechnique>
+                        <gco:CharacterString>concat into $.resourceDocumentation.resourceAccessOptions[N].accessLinks[M].linkDescription</gco:CharacterString>
+                     </gmd:fileDecompressionTechnique>
+                   </gmd:MD_Format>
+               </gmd:distributorFormat>
+               <gmd:distributorTransferOptions> 
+                 <gmd:MD_DigitalTransferOptions/> <!-- same as gmd:transferOptions, but scoped to a single distributor-->
+               </gmd:distributorTransferOptions>
+            </gmd:MD_Distributor>
+         </gmd:distributor>
+         <gmd:transferOptions>  <!-- if multiple gmd:transferOptions and multiple gmd:distributor
+         elements are present, and there are not gmd:distributorTransferOptions href's to bind distributors
+         with subset of options, then all transferOptions apply to all distributors; Handling this M to M situation 
+         can be deferred until v2; start with assumption there will be one distributor and 1..N transferOptions or 
+         distributorTransferOptions. -->
+            <gmd:transferOptions>
+               <gmd:MD_DigitalTransferOptions>
+                  <gmd:onLine>  <!-- $.resourceDocumentation.resourceAccessOptions[M].accessLinks[S] -->
+                     <gmd:CI_OnlineResource>
+                        <gmd:linkage>
+                           <gmd:URL>$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkURL</gmd:URL>
+                        </gmd:linkage>
+                        <gmd:protocol>
+                           <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkOverlayAPILabel</gco:CharacterString>
+                        </gmd:protocol>
+                        <gmd:applicationProfile>
+                           <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkProfileLabel</gco:CharacterString>
+                        </gmd:applicationProfile>
+                        <gmd:name>
+                           <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkTitle</gco:CharacterString>
+                        </gmd:name>
+                        <gmd:description>
+                           <gco:CharacterString>$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkDescription</gco:CharacterString>
+                        </gmd:description>
+                        <gmd:function>
+                           <gmd:CI_OnLineFunctionCode codeList="$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkRelations.relVocabularyURI" 
+                              codeListValue="$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkRelations.relURI" 
+                              codeSpace="$.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkRelations.relCodespace">
+                              $.resourceDocumentation.resourceAccessOptions[M].accessLinks[S].linkRelations.relLabel</gmd:CI_OnLineFunctionCode>
+                        </gmd:function>
+                     </gmd:CI_OnlineResource>
+                  </gmd:onLine>
+                </gmd:MD_DigitalTransferOptions>
+            </gmd:transferOptions>
          </gmd:transferOptions>
       </gmd:MD_Distribution>
    </gmd:distributionInfo>
+   
+   
    <gmd:dataQualityInfo>
       <gmd:DQ_DataQuality>
          <gmd:scope>
@@ -612,4 +989,12 @@
          </gmd:useLimitation>
       </gmd:MD_Constraints>
    </gmd:metadataConstraints>
+   <gmd:applicationSchemaInfo>
+      <!-- goes in extras for now. -->
+      <gmd:MD_ApplicationSchemaInformation>
+         <gmd:name/>
+         <gmd:schemaLanguage/>
+         <gmd:constraintLanguage/>
+      </gmd:MD_ApplicationSchemaInformation>
+   </gmd:applicationSchemaInfo>
 </gmd:MD_Metadata>
