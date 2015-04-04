@@ -1,8 +1,11 @@
 *******************************  ?TO DO
+
+gmd:contentInfo -> 5907
 gmd:dimension/gmd:MD_Band -> 69841
 gmd:minValue -> 15250
 gmd:maxValue -> 15245
 gmd:units -> 10174
+gmd:MD_CoverageDescription -> 2531
 
 gmd:sequenceIdentifier/gco:MemberName -> 69791
 gmd:axisDimensionProperties/gmd:MD_Dimension/gmd:dimensionName/gmd:MD_DimensionNameTypeCode -> 3913
@@ -84,6 +87,9 @@ xxxgmd:protocol -> 41697
 xxxgmd:applicationProfile -> 26480
 xxxgmd:onLine -> 36149
 xxxgmd:onlineResource -> 34731
+gmd:distributionFormat -> 11343
+gmd:orderingInstructions -> 10627
+gmd:distributorFormat -> 8211
 
 xxxgco:Date -> 69418
 xxxgmd:description -> 63694
@@ -151,6 +157,11 @@ gmd:DQ_Scope -> 10051
 gmd:level -> 10038
 gmd:measureDescription -> 3687
 
+gmd:DQ_ConceptualConsistency -> 3293
+gmd:DQ_CompletenessCommission -> 3267
+gmd:DQ_CompletenessOmission -> 3139
+gmd:DQ_AbsoluteExternalPositionalAccuracy -> 2248
+
 gmd:MD_FeatureCatalogueDescription -> 3080
 gmd:includedWithDataset -> 3037
 
@@ -162,8 +173,7 @@ gco:DateTime -> 14566
 gmd:MD_ProgressCode -> 11755
 gmd:status -> 11716
 gmd:purpose -> 11662
-gmd:distributionFormat -> 11343
-gmd:orderingInstructions -> 10627
+
 ns4:identifier -> 10445
 ns4:UnitDefinition -> 9974
 ns4:name -> 9974
@@ -171,7 +181,6 @@ gmd:supplementalInformation -> 9870
 gmd:evaluationMethodDescription -> 8623
 gmd:authority -> 8300
 xxxgco:Integer -> 8241
-gmd:distributorFormat -> 8211
 xxxgmd:dataSetURI -> 7851
 gml:TimePeriod -> 7770
 gml:beginPosition -> 7751
@@ -183,7 +192,7 @@ gmd:mediumNote -> 6487
 gmd:version -> 6465
 gmd:statement -> 6855
 gmd:processor -> 6747
-gmd:contentInfo -> 5907
+
 xxxgco:Boolean -> 4666
 xxxgmd:edition -> 4519
 gmd:graphicOverview -> 4495
@@ -198,47 +207,43 @@ ns4:endPosition -> 4168
 gmd:transferSize -> 3985
 gmd:sourceExtent -> 3938
 
-gmd:MD_RepresentativeFraction -> 3624
-gmd:denominator -> 3624
-gmd:aggregationInfo -> 3534
-gmd:MD_AggregateInformation -> 3534
-gmd:associationType -> 3526
-gmd:DS_AssociationTypeCode -> 3526
+gmd:resolution -> 1892
+gmd:MD_RepresentativeFraction/gmd:denominator -> 3624
+gmd:spatialResolution/gmd:MD_Resolution -> 2434
+gco:Scale -> 1532
+gmd:scaleDenominator -> 1269
+
+gmd:aggregationInfo/gmd:MD_AggregateInformation -> 3534
+gmd:associationType/gmd:DS_AssociationTypeCode -> 3526
 gmd:aggregateDataSetName -> 3403
-gmd:DQ_ConceptualConsistency -> 3293
-gmd:DQ_CompletenessCommission -> 3267
+
 ns4:TimeInstant -> 3163
 ns4:timePosition -> 3163
-gmd:DQ_CompletenessOmission -> 3139
-themekey -> 2756
+
 gmd:contactInstructions -> 2727
 gmd:nameOfMeasure -> 2532
-gmd:MD_CoverageDescription -> 2531
+
 gml:TimePeriod -> 2466
 gml:beginPosition -> 2466
 gmd:spatialRepresentationInfo -> 2460
 gml:endPosition -> 2447
-gmd:spatialResolution -> 2434
-gmd:MD_Resolution -> 2434
+
+
 gmd:otherCitationDetails -> 2372
 gmd:equivalentScale -> 2355
-gmd:DQ_AbsoluteExternalPositionalAccuracy -> 2248
+
 gmd:dimensionSize -> 2192
-gmd:spatialRepresentationType -> 2095
-gmd:MD_SpatialRepresentationTypeCode -> 2095
-gmd:resolution -> 1892
+gmd:spatialRepresentationType/gmd:MD_SpatialRepresentationTypeCode -> 2095
+
 gmd:environmentDescription -> 1845
 gmi:identifier -> 1667
 gmd:numberOfDimensions -> 1666
 gmd:MD_GridSpatialRepresentation -> 1664
 gmd:dateOfNextUpdate -> 1605
-gco:Scale -> 1532
+
 gmd:credit -> 1313
-gmd:scaleDenominator -> 1269
-address -> 1246
-gmi:instrument -> 1190
-gmi:MI_Instrument -> 1190
-onlink -> 1144
+
+gmi:instrument/gmi:MI_Instrument -> 1190
 gmd:fileDecompressionTechnique -> 1096
 gmd:specification -> 1076
 
@@ -268,19 +273,7 @@ gmd:featureCatalogueCitation -> 731
 origin -> 725
 gmd:extentTypeCode -> 724
 gmd:MD_MediumNameCode -> 715
-city -> 712
-cntorg -> 710
-cntinfo -> 709
-cntaddr -> 709
-cntvoice -> 709
-addrtype -> 709
-state -> 709
-postal -> 709
-cntorgp -> 707
-cntemail -> 685
-citeinfo -> 664
-title -> 664
-pubdate -> 662
+
 gmd:mediumFormat -> 630
 gmd:MD_MediumFormatCode -> 630
 gmd:geometricObjectCount -> 608
