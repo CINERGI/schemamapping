@@ -186,7 +186,61 @@ as gmd:MD_Metadata, so the mapping is the same. for now gmi: namespace content i
    <gmd:dataSetURI>
       <gco:CharacterString>$.resourceDocumentation.resourceIdentifier.resourceURI[0] put other identifiers in gmd:CI_Citation</gco:CharacterString>
    </gmd:dataSetURI>
-
+   <gmd:spatialRepresentationInfo>
+      <gmd:MD_Georectified>
+         <gmd:numberOfDimensions></gmd:numberOfDimensions>
+         <gmd:cellGeometry></gmd:cellGeometry>
+         <gmd:transformationParameterAvailability></gmd:transformationParameterAvailability>
+         <gmd:checkPointAvailability></gmd:checkPointAvailability>
+         <gmd:pointInPixel></gmd:pointInPixel>
+      </gmd:MD_Georectified>
+   </gmd:spatialRepresentationInfo>
+   <gmd:spatialRepresentationInfo>
+      <gmd:MD_Georeferenceable>
+         <gmd:numberOfDimensions></gmd:numberOfDimensions>
+         <gmd:cellGeometry></gmd:cellGeometry>
+         <gmd:transformationParameterAvailability></gmd:transformationParameterAvailability>
+         <gmd:controlPointAvailability></gmd:controlPointAvailability>
+         <gmd:orientationParameterAvailability></gmd:orientationParameterAvailability>
+         <gmd:georeferencedParameters></gmd:georeferencedParameters>
+      </gmd:MD_Georeferenceable>
+   </gmd:spatialRepresentationInfo>
+   <gmd:spatialRepresentationInfo>
+      <gmd:MD_GridSpatialRepresentation>
+         <gmd:numberOfDimensions></gmd:numberOfDimensions>
+         <gmd:cellGeometry></gmd:cellGeometry>
+         <gmd:transformationParameterAvailability></gmd:transformationParameterAvailability>
+      </gmd:MD_GridSpatialRepresentation>
+   </gmd:spatialRepresentationInfo>
+   <gmd:spatialRepresentationInfo>
+      <gmd:MD_VectorSpatialRepresentation>
+         <gmd:topologyLevel></gmd:topologyLevel>
+         <gmd:geometricObjects>
+            <gmd:MD_GeometricObjects>
+               <gmd:geometricObjectType></gmd:geometricObjectType>
+            </gmd:MD_GeometricObjects>
+         </gmd:geometricObjects>
+      </gmd:MD_VectorSpatialRepresentation>
+   </gmd:spatialRepresentationInfo>
+   <gmd:spatialRepresentationInfo>
+      <gmi:MI_Georectified>
+         <gmd:numberOfDimensions></gmd:numberOfDimensions>
+         <gmd:cellGeometry></gmd:cellGeometry>
+         <gmd:transformationParameterAvailability></gmd:transformationParameterAvailability>
+         <gmd:checkPointAvailability></gmd:checkPointAvailability>
+         <gmd:pointInPixel></gmd:pointInPixel>
+      </gmi:MI_Georectified>
+   </gmd:spatialRepresentationInfo>
+   <gmd:referenceSystemInfo>
+      <gmd:MD_ReferenceSystem>
+         <gmd:referenceSystemIdentifier>
+            <gmd:RS_Identifier>
+               <gmd:authority></gmd:authority>
+               <gmd:code></gmd:code>
+            </gmd:RS_Identifier>
+         </gmd:referenceSystemIdentifier>
+      </gmd:MD_ReferenceSystem>
+   </gmd:referenceSystemInfo>
    <gmd:identificationInfo>
       <gmd:MD_DataIdentification>
          <gmd:citation>
@@ -614,23 +668,25 @@ as gmd:MD_Metadata, so the mapping is the same. for now gmi: namespace content i
       <!-- mapping still to do -->
       <gmd:MD_CoverageDescription>
          <gmd:attributeDescription>
-            <gco:RecordType></gco:RecordType>
+            <gco:RecordType>$.resourceDocumentation.resourceInformationModel.attributes[N].attributeDescription</gco:RecordType>
          </gmd:attributeDescription>
          <gmd:contentType>
-            <gmd:MD_CoverageContentTypeCode codeList=""
-               codeListValue=""
-               codeSpace=""></gmd:MD_CoverageContentTypeCode>
+            <gmd:MD_CoverageContentTypeCode codeList="$.resourceDocumentation.resourceInformationModel.attributes[N].attributeContentTypeVocabularyURI"
+               codeListValue="$.resourceDocumentation.resourceInformationModel.attributes[N].attributeContentTypeURI"
+               codeSpace="$.resourceDocumentation.resourceInformationModel.attributes[N].attributeContentTypeCodespace">
+               $.resourceDocumentation.resourceInformationModel.attributes[N].attributeContentTypeLabel
+            </gmd:MD_CoverageContentTypeCode>
          </gmd:contentType>
          <gmd:dimension>
             <gmd:MD_RangeDimension>
                <gmd:sequenceIdentifier>
                   <gco:MemberName>
-                     <gco:aName>
-                        <gco:CharacterString></gco:CharacterString>
+                     <gco:aName xlink:href="$.resourceDocumentation.resourceInformationModel.attributes[].attributeURI">
+                        <gco:CharacterString>$.resourceDocumentation.resourceInformationModel.attributes[].attributeName</gco:CharacterString>
                      </gco:aName>
                      <gco:attributeType>
                         <gco:TypeName>
-                           <gco:aName> <!-- data type for this member; this isthe name of an attribute or property in a 
+                           <gco:aName> <!-- data type for this member; this is the name of an attribute or property in a 
                            a content model -->
                               <gco:CharacterString></gco:CharacterString>
                            </gco:aName>
