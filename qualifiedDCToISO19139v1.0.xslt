@@ -399,7 +399,7 @@
                                                   <xsl:when
                                                   test="starts-with(normalize-space(string(.)), 'doi:')">
                                                   <xsl:value-of
-                                                  select="concat('http://dx.doi.org/', substring-after(normalize-space(string(.)), 'doi:'))"
+                                                  select="concat('https://doi.org/', substring-after(normalize-space(string(.)), 'doi:'))"
                                                   />
                                                   </xsl:when>
                                                   <xsl:when
