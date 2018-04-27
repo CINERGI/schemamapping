@@ -60,8 +60,9 @@
     <xsl:variable name="dc-dates" select="//*[contains($dcdates, local-name())]"/>
     <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+    <!-- don't include references because that will be called out for distribution links -->
     <xsl:variable name="dcrelation"
-        select="'relation|hasVersion|isVersionOf|isReplacedBy|replaces|isRequiredBy|requires|isPartOf|hasPart|isReferencedBy|references|isFormatOf|hasFormat|conformsTo'"/>
+        select="'relation|hasVersion|isVersionOf|isReplacedBy|replaces|isRequiredBy|requires|isPartOf|hasPart|isReferencedBy|isFormatOf|hasFormat|conformsTo'"/>
     <xsl:variable name="dcdates"
         select="'date|created|valid|available|issued|modified|dateAccepted|dateCopyrighted|dateSubmitted'"/>
     <!-- these variables set content for gmd:metadataMaintenance element at the end of the record
@@ -164,8 +165,7 @@
                 </gco:DateTime>
             </gmd:dateStamp>
             <gmd:metadataStandardName>
-                <gco:CharacterString>ISO 19139 Geographic Information - Metadata - Implementation
-                    Specification</gco:CharacterString>
+                <gco:CharacterString>ISO 19139 Geographic Information - Metadata - Implementation Specification</gco:CharacterString>
             </gmd:metadataStandardName>
             <gmd:metadataStandardVersion>
                 <gco:CharacterString>2007</gco:CharacterString>
@@ -414,15 +414,12 @@
                                                 <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                                             </gmd:protocol>
                                             <gmd:name>
-                                                <gco:CharacterString>Landing
-                                                  Page</gco:CharacterString>
+                                                <gco:CharacterString>Landing Page</gco:CharacterString>
                                             </gmd:name>
                                             <gmd:description>
                                                 <gco:CharacterString>
                                                   <xsl:value-of
-                                                  select="
-                                                            normalize-space(string('Link to DOI landing page or data facility landing page if no DOI is assigned.'))"
-                                                  />
+                                                  select="normalize-space(string('Link to landing page referenced by identifier'))"/>
                                                 </gco:CharacterString>
                                             </gmd:description>
                                             <gmd:function>
@@ -456,16 +453,14 @@
                                                   </gco:CharacterString>
                                                   </xsl:when>
                                                   <xsl:otherwise>
-                                                  <gco:CharacterString>Dublin Core references
-                                                  URL</gco:CharacterString>
+                                                  <gco:CharacterString>Dublin Core references URL</gco:CharacterString>
                                                   </xsl:otherwise>
                                                 </xsl:choose>
                                             </gmd:name>
                                             <gmd:description>
                                                 <gco:CharacterString>
                                                   <xsl:value-of
-                                                  select="normalize-space(string('URL provided in Dublin Core references element.'))"
-                                                  />
+                                                  select="normalize-space(string('URL provided in Dublin Core references element.'))"/>
                                                 </gco:CharacterString>
                                             </gmd:description>
                                             <gmd:function>
@@ -1042,31 +1037,6 @@ The ID of persons should also be put as "xlink:href" attribute into the parent e
     </xsl:template>
 
 
-
-    <!-- handle ows boundingBox in csw:record instances  -->
-    <!-- note  the coordinate order is reversed between WGS84boundingBox and Bounding 
-    box, according to OGC 06-121R9, Table D.12 
-    
-    Envelope.WestBoundLongitude: WGS84BoundingBox.LowerCorner.#1 
-                                    BoundingBox.LowerCorner.#2 
-    Envelope.SouthBoundLatitude: WGS84BoundingBox.LowerCorner.#2 
-                                    BoundingBox.LowerCorner.#1 
-    Envelope.EastBoundLongitude: WGS84BoundingBox.UpperCorner.#1 
-                                    BoundingBox.UpperCorner.#2
-    Envelope.NorthBoundLatitude: WGS84BoundingBox.UpperCorner.#2 
-                                    BoundingBox.UpperCorner.#1
-                                    
-    ows:WGS84BoundingBox.LowerCorner:  {WestBoundLong SouthBoundLat} or {wLong sLat}
-    ows:WGS84BoundingBox.UpperCorner:  {EastBoundLong NorthBoundLat} or {eLong nLat}
- 
-    
-    ows:BoundingBox.LowerCorner: {SouthBoundLat WestBoundLong} or {sLat wLong}
-    ows:BoundingBox.UpperCorner: {NorthBoundLat EastBoundLong} or {nLat eLong}
-    
-    ESRI geoportal CSW encoding encodes ows:BoundingBox the same way as WGS84BoundingBox !!!!!:
-    ows:WGS84BoundingBox.LowerCorner:  {WestBoundLong SouthBoundLat} or {wLong sLat}
-    ows:WGS84BoundingBox.UpperCorner:  {EastBoundLong NorthBoundLat} or {eLong nLat}
-    -->
  <xsl:template name="spatialcoverage">
         <!-- handle ows: encoded bounding boxes, as expected in  csw:record -->
         <!-- Note: nLat is always the northernmost latitude, 
@@ -1286,44 +1256,6 @@ The ID of persons should also be put as "xlink:href" attribute into the parent e
                                 </gmd:EX_GeographicBoundingBox>
                             </gmd:geographicElement>
                         </xsl:otherwise>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <!--                        <xsl:otherwise>
-                            <gmd:geographicElement>
-                                <gmd:EX_GeographicBoundingBox>
-                                    <gmd:westBoundLongitude>
-                                        <gco:Decimal>
-                                            <xsl:value-of select="$wLong"/>
-                                        </gco:Decimal>
-                                    </gmd:westBoundLongitude>
-                                    <gmd:eastBoundLongitude>
-                                        <gco:Decimal>
-                                            <xsl:value-of select="$eLong"/>
-                                        </gco:Decimal>
-                                    </gmd:eastBoundLongitude>
-                                    <gmd:southBoundLatitude>
-                                        <gco:Decimal>
-                                            <xsl:value-of select="$sLat"/>
-                                        </gco:Decimal>
-                                    </gmd:southBoundLatitude>
-                                    <gmd:northBoundLatitude>
-                                        <gco:Decimal>
-                                            <xsl:value-of select="$nLat"/>
-                                        </gco:Decimal>
-                                    </gmd:northBoundLatitude>
-                                </gmd:EX_GeographicBoundingBox>
-                            </gmd:geographicElement>
-                        </xsl:otherwise>-->
                     </xsl:choose>
                 </gmd:EX_Extent>
             </gmd:extent>
@@ -1982,8 +1914,7 @@ The ID of persons should also be put as "xlink:href" attribute into the parent e
                                 <xsl:element name="gmd:DS_AssociationTypeCode">
                                     <xsl:attribute name="codeList">
                                         <xsl:value-of
-                                            select="string('http://www.isotc211.org/2005/resources/codeList.xml#DS_AssociationTypeCode')"
-                                        />
+                                            select="string('http://www.isotc211.org/2005/resources/codeList.xml#DS_AssociationTypeCode')"/>
                                     </xsl:attribute>
                                     <xsl:attribute name="codeListValue">
                                         <xsl:value-of select="string('crossReference')"/>
@@ -2034,7 +1965,13 @@ The ID of persons should also be put as "xlink:href" attribute into the parent e
         <xsl:variable name="ALPHA">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable>
         <xsl:variable name="numeric">1234567890.-</xsl:variable>
         <xsl:variable name="sizes"
-            select="//*[local-name() = 'size' and (contains(translate(., $ALPHA, $alpha), 'byte') or contains(translate(., $ALPHA, $alpha), 'kb') or contains(translate(., $ALPHA, $alpha), 'kilobyte') or contains(translate(., $ALPHA, $alpha), 'mb') or contains(translate(., $ALPHA, $alpha), 'megabyte') or contains(translate(., $ALPHA, $alpha), 'gb') or contains(translate(., $ALPHA, $alpha), 'gigabyte') or contains(translate(., $ALPHA, $alpha), 'tb') or contains(translate(., $ALPHA, $alpha), 'terabyte') or contains(translate(., $ALPHA, $alpha), 'pb') or contains(translate(., $ALPHA, $alpha), 'petabyte'))]"/>
+            select="//*[local-name() = 'extent' and (contains(translate(., $ALPHA, $alpha), 'byte') or 
+            contains(translate(., $ALPHA, $alpha), 'kb') or contains(translate(., $ALPHA, $alpha), 'kilobyte') or 
+            contains(translate(., $ALPHA, $alpha), 'mb') or contains(translate(., $ALPHA, $alpha), 'megabyte') or 
+            contains(translate(., $ALPHA, $alpha), 'gb') or contains(translate(., $ALPHA, $alpha), 'gigabyte') or 
+            contains(translate(., $ALPHA, $alpha), 'tb') or contains(translate(., $ALPHA, $alpha), 'terabyte') or 
+            contains(translate(., $ALPHA, $alpha), 'pb') or 
+            contains(translate(., $ALPHA, $alpha), 'petabyte'))][1]"/>
         <xsl:variable name="sizevalue"
             select="normalize-space(translate($sizes, translate($sizes, $numeric, ''), ''))"/>
         <xsl:variable name="size">
