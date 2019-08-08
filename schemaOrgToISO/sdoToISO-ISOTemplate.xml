@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"
+    xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv"
+    xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- template mapping schema.org JSON-LD to ISO19115 (2006).  
+        JSON paths follow https://restfulapi.net/json-jsonpath/
+    
+    java implemenation at https://github.com/json-path/JsonPath adds additional operators for expressions
+    https://github.com/kennknowles/python-jsonpath-rw is python implementation that is also somewhat different
+    flow communications php implementation https://github.com/FlowCommunications/JSONPath
+    see https://pypi.org/search/?q=jsonpath for a bunch of python implementations...
+    
+    comparison of different implementations: https://cburgmer.github.io/json-path-comparison/
+    -->
+    
+    <!-- NOTE NOTE NOTE !!!!!!!!!!!!!!!!!!  
+    JSON-LD must be preprocessed so that 
+        1. sdo namespace elements do not have prefixes
+        2. all '@' characters are converted to 'at_'. '@' is a reserved character in JSON path
+        3. all ':' characters used in prefixes for JSON keys are converted to '-'. ':' is a reserved character in JSON path
+    
+    various string functions are used, mostly based on XQuery/XPath function names; these will need to be mapped into 
+    appropriate functions for the implementation environment of the template processor
+    
+    -->
+    <gmd:fileIdentifier>
+        <gco:CharacterString>metadata-{{(lcase(trim($.'@id')))}}</gco:CharacterString>
+    </gmd:fileIdentifier>
+    <gmd:language>
+        <gco:CharacterString>en</gco:CharacterString>
+    </gmd:language>
+    <!-- default to dataset for resource type -->
+    <gmd:hierarchyLevel>
+        <gmd:MD_ScopeCode codeSpace="ISOTC211/19115"
+            codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode"
+            codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+    </gmd:hierarchyLevel>
+    <gmd:hierarchyLevelName>
+        <gco:CharacterString>{{$.'@type'}}</gco:CharacterString>
+    </gmd:hierarchyLevelName>
+    <!-- metadata creator contact information -->
+    <gmd:contact>
+        <gmd:CI_ResponsibleParty>
+            <gmd:organisationName>
+                <gco:CharacterString>Earthcube CINERGI Metadata Pipeline</gco:CharacterString>
+            </gmd:organisationName>
+            <gmd:positionName>
+                <gco:CharacterString>CINERGI Metadata Contact</gco:CharacterString>
+            </gmd:positionName> <gmd:contactInfo>
+                <gmd:CI_Contact>
+                    <gmd:address>
+                        <gmd:CI_Address>
+                            <gmd:electronicMailAddress>
+                                <gco:CharacterString>metadata@earthcube.org</gco:CharacterString>
+                            </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                    </gmd:address>
+                </gmd:CI_Contact>
+            </gmd:contactInfo>
+            <gmd:role>
+                <gmd:CI_RoleCode codeSpace="ISOTC211/19115"
+                    codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                    codeListValue="pointOfContact">pointOfContact </gmd:CI_RoleCode>
+            </gmd:role>
+        </gmd:CI_ResponsibleParty>
+    </gmd:contact>
+    <gmd:dateStamp gco:nilReason="unknown"/>
+    <gmd:metadataStandardName>
+        <gco:CharacterString>ISO 19139/19115 Metadata for Datasets</gco:CharacterString>
+    </gmd:metadataStandardName>
+    <gmd:metadataStandardVersion>
+        <gco:CharacterString>2003</gco:CharacterString>
+    </gmd:metadataStandardVersion> 
+
+    <gmd:identificationInfo>
+        <gmd:MD_DataIdentification>
+            <gmd:citation>
+                <gmd:CI_Citation>
+                    <gmd:title>
+                        <gco:CharacterString>{{ $.name }}</gco:CharacterString>
+                    </gmd:title>
+                    {% if $.alternateName %}
+                    <gmd:alternateTitle>
+                        <gco:CharacterString>{{ $.alternateName }}</gco:CharacterString>
+                    </gmd:alternateTitle>
+                    {% endif %}
+                    {% if $.datePublished %}
+                    <!-- TODO implement some error checking on the datePublished string -->
+                        <gmd:date>
+                            <gmd:CI_Date>
+                                <gmd:date>
+                                    <gco:Date>{{$.datePublished}}</gco:Date>
+                                </gmd:date>
+                                <gmd:dateType>
+                                    <gmd:CI_DateTypeCode codeSpace="ISOTC211/19115"
+                                        codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode"
+                                        codeListValue="publication">publication </gmd:CI_DateTypeCode>
+                                </gmd:dateType>
+                            </gmd:CI_Date>
+                        </gmd:date>
+                    {$ endif %}
+                    <gmd:identifier>
+                        <gmd:MD_Identifier>
+                            <gmd:code>
+                                <gco:CharacterString>{{ $.'@id' }}</gco:CharacterString>
+                            </gmd:code>
+                        </gmd:MD_Identifier>
+                    </gmd:identifier>
+                    
+                    {% for item in $.identifier.* %} 
+                        {% if @[?(@.at_type == 'PropertyValue)] %}
+                        <!-- assumption is that identifier element content is an array, in which each element is 
+                            either a string, or a JSON object of @type PropertyValue -->
+                            <gmd:identifier>
+                                <gmd:RS_Identifier>
+                                    <gmd:code>
+                                        <gco:CharacterString>{{ @.value }}</gco:CharacterString>
+                                    </gmd:code>
+                                    <gmd:codeSpace>
+                                        <gco:CharacterString>{{@.propertyID }}</gco:CharacterString>
+                                    </gmd:codeSpace>
+                                </gmd:RS_Identifier>
+                            </gmd:identifier> 
+                        {% else % } 
+                            <gmd:identifier>
+                                <gmd:RS_Identifier>
+                                    <gmd:code>
+                                        <gco:CharacterString>{{ @ }}</gco:CharacterString>
+                                    </gmd:code>
+                                </gmd:RS_Identifier>
+                            </gmd:identifier> 
+                        {% endif %}
+                    {% endfor %} 
+                    
+                    {% for item in $.creator.* %}
+                       {% if @..url %}
+                           <gmd:citedResponsibleParty xlink:href="{{ @..url }}">
+                       {% else %}
+                           <gmd:citedResponsibleParty>
+                       {% endif %}
+                            <gmd:CI_ResponsibleParty>
+                                {% if @..*[?(@.at_type = 'Person')] %}
+                                    <gmd:individualName>
+                                        <gco:CharacterString> {{ @..name }} </gco:CharacterString>
+                                    </gmd:individualName>
+                                {% endif %}
+                                {% if @..*[?(@.at_type = 'Organization')] %}
+                                    <gmd:organisationName>
+                                        <gco:CharacterString>{{ @..name }}</gco:CharacterString>
+                                    </gmd:organisationName>
+                                {% endif %}
+                                <gmd:contactInfo>
+                                    <gmd:CI_Contact>
+                                        <gmd:phone>
+                                            <gmd:CI_Telephone>
+                                                <gmd:facsimile>
+                                                    <gco:CharacterString>fax phone citRespParty1</gco:CharacterString>
+                                                </gmd:facsimile>
+                                            </gmd:CI_Telephone>
+                                        </gmd:phone>
+                                    </gmd:CI_Contact>
+                                </gmd:contactInfo>
+                                {% if @.at_type = "Role" %}
+                                <gmd:role>
+                                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" 
+                                        codeListValue="author"> {{ @.roleName }}</gmd:CI_RoleCode>
+                                </gmd:role>
+                                {% else %}
+                                <gmd:role>
+                                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" 
+                                        codeListValue="author">creator</gmd:CI_RoleCode>
+                                </gmd:role>
+                                {% endif %}
+                            </gmd:CI_ResponsibleParty>
+                        </gmd:citedResponsibleParty>
+                    {% endfor %}  <!-- item in $.creator.* -->
+
+                    <gmd:otherCitationDetails>
+                        <gco:CharacterString>Other citation Details</gco:CharacterString>
+                    </gmd:otherCitationDetails>
+                    
+                </gmd:CI_Citation>
+            </gmd:citation> 
+            {% if $.description %} 
+                <gmd:abstract>
+                    <gco:CharacterString>{{ $.description }}</gco:CharacterString>
+                </gmd:abstract> 
+            {% else %} 
+                <gmd:abstract gco:nilReason="unknown"/> 
+            {% endif %} 
+            
+            {% if row['Services#multi'] %} 
+                <gmd:purpose>
+                    <gco:CharacterString>{{ row['Services#multi'] }}</gco:CharacterString>
+                </gmd:purpose> 
+            {% endif %} 
+            
+            <gmd:credit>
+                <gco:CharacterString>resource credit 1</gco:CharacterString>
+            </gmd:credit>
+            
+            {% if row['Resource steward organization'] %} 
+                <gmd:pointOfContact>
+                    <gmd:CI_ResponsibleParty> 
+                        {% if row['Resource steward organization'] %} 
+                            <gmd:individualName>
+                                <gco:CharacterString>{{ row['Resource steward person#info']}}</gco:CharacterString>
+                            </gmd:individualName> 
+                        {% endif %} 
+                        <gmd:organisationName>
+                            <gco:CharacterString>{{ row['Resource steward organization']}}</gco:CharacterString>
+                        </gmd:organisationName> 
+                        {% if row['Resource POC e-mail#info'] or row['Resource POC voice phone#info'] %} 
+                            <gmd:contactInfo>
+                                <gmd:CI_Contact> 
+                                    {% if row['Resource POC voice phone#info'] %} 
+                                     <gmd:phone>
+                                         <gmd:CI_Telephone>
+                                             <gmd:voice>
+                                                 <gco:CharacterString>{{ row['Resource POC voice phone#info']}} </gco:CharacterString>
+                                             </gmd:voice>
+                                         </gmd:CI_Telephone>
+                                     </gmd:phone> 
+                                    {% endif %} 
+                                    {% if row['Resource POC e-mail#info'] %} 
+                                        <gmd:address>
+                                            <gmd:CI_Address>
+                                                <gmd:electronicMailAddress>
+                                                    <gco:CharacterString>{{ row['Resource POC e-mail#info']
+                                                        }}</gco:CharacterString>
+                                                </gmd:electronicMailAddress> </gmd:CI_Address>
+                                        </gmd:address> 
+                                    {% endif %} 
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo> 
+                        {% endif %} 
+                        <gmd:role>
+                            <gmd:CI_RoleCode codeSpace="ISOTC211/19115"
+                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                codeListValue="pointOfContact">pointOfContact </gmd:CI_RoleCode>
+                        </gmd:role>
+                    </gmd:CI_ResponsibleParty>
+                </gmd:pointOfContact> 
+            {% endif %} 
+            
+            <gmd:resourceFormat/>
+            
+            
+            {% if $.keywords %} 
+            <!-- keywords might be an array of strings, or a single string that is a comma-delimited list 
+                have to figure out how to handle the list... -->
+                <gmd:descriptiveKeywords>
+                    <gmd:MD_Keywords> 
+                        {% if $.keywords.* %}
+                            {% for item in $.keywords.* %} 
+                                <gmd:keyword>
+                                    <gco:CharacterString>{{ item|trim }}</gco:CharacterString>
+                                </gmd:keyword> 
+                            {% endfor %} 
+                        {% else %}
+                            {% for item in $.keywords | split(',') %}
+                                <gmd:keyword>
+                                    <gco:CharacterString>{{ item|trim }}</gco:CharacterString>
+                                </gmd:keyword>                           
+                            {% endfor%}
+                        {% endif %}
+                        <gmd:type>
+                            <gmd:MD_KeywordTypeCode codeSpace="ISOTC211/19115"
+                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode"
+                                codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+                        </gmd:type>
+                    </gmd:MD_Keywords>
+                </gmd:descriptiveKeywords> 
+            {% endif %} 
+            {% if row['DataType#multi'] %} 
+                <gmd:descriptiveKeywords>
+                    <gmd:MD_Keywords> 
+                        {% for item in row['DataType#multi'].split(',') %} 
+                         <gmd:keyword>
+                             <gco:CharacterString>{{ item|trim }}</gco:CharacterString>
+                         </gmd:keyword> 
+                        {% endfor %} 
+                        <gmd:type>
+                            <gmd:MD_KeywordTypeCode codeSpace="ISOTC211/19115"
+                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode"
+                                codeListValue="theme">theme </gmd:MD_KeywordTypeCode>
+                        </gmd:type>
+                        <gmd:thesaurusName>
+                            <gmd:CI_Citation>
+                                <gmd:title>
+                                    <gco:CharacterString>DataType from C4P</gco:CharacterString>
+                                </gmd:title>
+                                <gmd:date>
+                                    <gmd:CI_Date>
+                                        <gmd:date>
+                                            <gco:Date>2015-01-01</gco:Date>
+                                        </gmd:date>
+                                        <gmd:dateType>
+                                            <gmd:CI_DateTypeCode codeListValue="publication"
+                                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode"
+                                            />
+                                        </gmd:dateType>
+                                    </gmd:CI_Date>
+                                </gmd:date>
+                            </gmd:CI_Citation>
+                        </gmd:thesaurusName>
+                    </gmd:MD_Keywords>
+                </gmd:descriptiveKeywords> 
+            {% endif %} 
+            {% if row['keywords_geographic#multi'] %} 
+            <gmd:descriptiveKeywords>
+                <gmd:MD_Keywords> {% for item in row['keywords_geographic#multi'].split(',') %} <gmd:keyword>
+                        <gco:CharacterString>{{ item|trim }}</gco:CharacterString>
+                    </gmd:keyword> {% endfor %} <gmd:type>
+                        <gmd:MD_KeywordTypeCode codeSpace="ISOTC211/19115"
+                            codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode"
+                            codeListValue="place">place </gmd:MD_KeywordTypeCode>
+                    </gmd:type>
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords> 
+            {% endif %} 
+
+            
+            <gmd:resourceConstraints>
+                <gmd:MD_Constraints>
+                    <gmd:useLimitation>
+                        <gco:CharacterString>resource use limitation 1</gco:CharacterString>
+                    </gmd:useLimitation>
+                    <gmd:useLimitation>
+                        <gco:CharacterString>resource use limitation 2</gco:CharacterString>
+                    </gmd:useLimitation>
+                </gmd:MD_Constraints>
+            </gmd:resourceConstraints>
+            
+           
+            <gmd:language>
+                <gco:CharacterString>en</gco:CharacterString>
+            </gmd:language>
+            <gmd:topicCategory>
+                <gmd:MD_TopicCategoryCode>geoscientificInformation</gmd:MD_TopicCategoryCode>
+            </gmd:topicCategory>
+            <gmd:topicCategory>
+                <gmd:MD_TopicCategoryCode>environment</gmd:MD_TopicCategoryCode>
+            </gmd:topicCategory> 
+            {#
+            <!--
+                 <gmd:extent>
+                     <gmd:EX_Extent>
+                         <gmd:geographicElement>
+                             <gmd:EX_GeographicBoundingBox>
+                                 <gmd:westBoundLongitude>
+                                     <gco:Decimal>-180</gco:Decimal>
+                                 </gmd:westBoundLongitude>
+                                 <gmd:eastBoundLongitude>
+                                     <gco:Decimal>180</gco:Decimal>
+                                 </gmd:eastBoundLongitude>
+                                 <gmd:southBoundLatitude>
+                                     <gco:Decimal>-90</gco:Decimal>
+                                 </gmd:southBoundLatitude>
+                                 <gmd:northBoundLatitude>
+                                     <gco:Decimal>90</gco:Decimal>
+                                 </gmd:northBoundLatitude>
+                             </gmd:EX_GeographicBoundingBox>
+                         </gmd:geographicElement>
+                         <gmd:temporalElement>
+                             <gmd:EX_TemporalExtent>
+                                 <gmd:extent>
+                                     <gml:TimePeriod gml:id="Temporal">
+                                         <gml:beginPosition>[startdate 1999-01-01]</gml:beginPosition>
+                                         <gml:endPosition>[enddate - 2000-12-31]</gml:endPosition>
+                                     </gml:TimePeriod>
+                                 </gmd:extent>
+                             </gmd:EX_TemporalExtent>
+                         </gmd:temporalElement>
+                     </gmd:EX_Extent>
+                 </gmd:extent>
+                 -->
+            #} 
+            <gmd:supplementalInformation>
+                <gco:CharacterString>Data Identification supplemental information</gco:CharacterString>
+            </gmd:supplementalInformation>
+            
+        </gmd:MD_DataIdentification>
+    </gmd:identificationInfo> 
+
+    
+    {% if  %} 
+        <gmd:distributionInfo>
+            <gmd:MD_Distribution>
+                <gmd:distributionFormat>
+                    <gmd:MD_Format>
+                        <gmd:name>
+                            <gco:CharacterString>Resource URL</gco:CharacterString>
+                        </gmd:name>
+                        <gmd:version>
+                            <gco:CharacterString>0.0</gco:CharacterString>
+                        </gmd:version>
+                    </gmd:MD_Format> 
+                </gmd:distributionFormat> 
+                <gmd:transferOptions>
+                    <gmd:MD_DigitalTransferOptions>
+                        <gmd:transferSize>
+                            <gco:Real>{{ }}</gco:Real>
+                        </gmd:transferSize>
+                        
+                        {%  if $.url.*  %}
+                            {% for item in $.url.*  %}
+                                <gmd:onLine>
+                                    <gmd:CI_OnlineResource>
+                                        <gmd:linkage>
+                                            <gmd:URL>{{ item }}</gmd:URL>
+                                        </gmd:linkage> 
+                                        <gmd:protocol>
+                                            <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                                        </gmd:protocol>
+                                    </gmd:CI_OnlineResource>
+                                </gmd:onLine>
+                            {% endfor  %}
+                        {% else %}
+                            <gmd:onLine>
+                                <gmd:CI_OnlineResource>
+                                    <gmd:linkage>
+                                        <gmd:URL>{{ $.url }}</gmd:URL>
+                                    </gmd:linkage> 
+                                    <gmd:protocol>
+                                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                                    </gmd:protocol>
+                                </gmd:CI_OnlineResource>
+                            </gmd:onLine>
+                        {% endif %}
+                        
+                        <gmd:onLine>
+                            <gmd:CI_OnlineResource>
+                                <gmd:linkage>
+                                    <gmd:URL>{{  }}</gmd:URL>
+                                </gmd:linkage> 
+                                <gmd:protocol>
+                                    <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                                </gmd:protocol>
+                                <gmd:applicationProfile>
+                                    <gco:CharacterString>{{ }}</gco:CharacterString>
+                                </gmd:applicationProfile>
+                                <gmd:name>
+                                    <gco:CharacterString>{{ }}</gco:CharacterString>
+                                </gmd:name>
+                                <gmd:description>
+                                    <gco:CharacterString>{{ }}</gco:CharacterString>
+                                </gmd:description>
+        
+                                 <gmd:function>
+                                    <gmd:CI_OnLineFunctionCode
+                                        codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
+                                        codeListValue="download"/>
+                                </gmd:function>
+                            </gmd:CI_OnlineResource>
+                        </gmd:onLine>
+                    </gmd:MD_DigitalTransferOptions>
+                </gmd:transferOptions>
+            </gmd:MD_Distribution>
+        </gmd:distributionInfo> 
+    {% endif %} 
+</gmd:MD_Metadata>

@@ -1,0 +1,61 @@
+{
+	"@context": {
+		"@vocab": "http://schema.org/",
+		"geolink": "http://schema.geolink.org/1.0/base/main#"
+	},
+	"@type": "Dataset",
+	"additionalType": [
+		"http://schema.geolink.org/1.0/base/main#Dataset",
+		"http://vivoweb.org/ontology/core#Dataset"
+	],
+	"name": "Characterization of Modern Dune Fields in Central and Southern Utah",
+	"description": "This is a project proposal for the CEE 6440 GIS in Water Resources 2016 course. Four dune fields in Utah are identified for assessment of conditions and changes in modern history (100 years to present), including dune migration, precipitation variability, wind patterns and geology in advance of chronostratigraphic work.",
+	"url": "https://www.hydroshare.org/resource/75f47659abcc41c6813ef228c7da61e5/",
+	"version": "2017-06-04",
+	"isAccessibleForFree": true,
+	"keywords": "[\"GISWR2016\", \"Dunes\", \"Drought\", \"Climate study\"]",
+	"license": "http://creativecommons.org/licenses/by/4.0/",
+	"citation": "Cornachione, H. (2016). Characterization of Modern Dune Fields in Central and Southern Utah, HydroShare, http://www.hydroshare.org/resource/75f47659abcc41c6813ef228c7da61e5",
+	"includedInDataCatalog": {
+		"@id": "https://www.hydroshare.org"
+	},
+	"distribution": {
+		"@type": "DataDownload",
+		"contentUrl": "https://www.hydroshare.org/hsapi/resource/75f47659abcc41c6813ef228c7da61e5/",
+		"encodingFormat": "application/zip"
+	},
+	"spatialCoverage": {
+		"@type": "Place",
+		"geo": {
+			"@type": "GeoShape",
+			"box": ",  , "
+		}
+	},
+	"creator": [
+		{
+			"@id": "/user/726/",
+			"@type": "Role",
+			"additionalType": "http://schema.geolink.org/1.0/base/main#Participant",
+			"roleName": "Author",
+			"url": "/user/726/",
+			"creator": {
+				"@id": "/user/726/",
+				"@type": "Person",
+				"additionalType": "http://schema.geolink.org/1.0/base/main#Person",
+				"name": "Harriet Cornachione",
+				"url": "/user/726//"
+			}
+		}
+	],
+	"provider": {
+		"@id": "https://www.hydroshare.org",
+		"@type": "Organization",
+		"additionalType": "http://schema.geolink.org/1.0/base/main#Organization",
+		"legalName": "HydroShare",
+		"name": "HydroShare",
+		"url": "https://www.hydroshare.org"
+	},
+	"publisher": {
+		"@id": "https://www.hydroshare.org"
+	}
+}

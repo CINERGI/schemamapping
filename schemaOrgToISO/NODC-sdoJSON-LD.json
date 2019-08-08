@@ -1,0 +1,151 @@
+{
+	"@context": {
+		"@vocab": "http://schema.org/",
+		"datacite": "http://purl.org/spar/datacite/",
+		"earthcollab": "https://library.ucar.edu/earthcollab/schema#",
+		"geolink": "http://schema.geolink.org/1.0/base/main#",
+		"vivo": "http://vivoweb.org/ontology/core#",
+		"dcat": "http://www.w3.org/ns/dcat#"
+	},
+	"@id": "urn:",
+	"@type": "Dataset",
+	"additionalType": [
+		"geolink:Dataset",
+		"vivo:Dataset"
+	],
+	"name": "CHLOROPHYLL A, SALINITY, HYDROSTATIC PRESSURE, DISSOLVED OXYGEN and other undulating profile data collected in the North Atlantic Ocean on the ENDEAVOR cruises EN321 and EN325 as part of the GB project from 1999-03-30 to 1999-06-27 (NODC Accession 0106340)NOAA/NODC",
+	"citation": "(2013-05-10), CHLOROPHYLL A, SALINITY, HYDROSTATIC PRESSURE, DISSOLVED OXYGEN and other undulating profile data collected in the North Atlantic Ocean on the ENDEAVOR cruises EN321 and EN325 as part of the GB project from 1999-03-30 to 1999-06-27 (NODC Accession 0106340)NOAA/NODC, urn:.",
+	"creator": [],
+	"datePublished": "2013-05-10",
+	"description": "NODC Accession 0106340 includes profile, undulating profile, biological, chemical and physical data collected aboard the ENDEAVOR during cruises EN321 and EN325 in the North Atlantic Ocean from 1999-03-30 to 1999-06-27. These data include CHLOROPHYLL A, SALINITY, HYDROSTATIC PRESSURE, DISSOLVED OXYGEN, TEMPERATURE and SIGMA-T. The instruments used to collect these data include Undulating towed profiler and CTD. These data were collected by Dian J. Gifford and Karen Wishner of University of Rhode Island as part of GB. The Biological and Chemical Oceanography Data Management Office (BCO-DMO) submitted these data to NODC on 2013-04-25.The following is the text of the abstract provided by BCO-DMO:SCANFISH CTD Data Endeavor Cruises 321 and 325PI Notes: The Scanfish is a towed undulating vehicle carrying a CTD and several other sensors and was utilized on Endeavor Cruises 321 and 325 to Georges Bank. The scanfish is towed along various transacts to map the hydrographic properties of a survey area. During each cruise a number of tows were carried out, and the data are organized by tow. The SeaBird 911plus CTD records data at 24 Hz. It has been processed following the procedures outlined by O'Malley, et al (1998) and subsequently averaged to 1 Hz. REFERENCEO'Malley, R., J. A. Barth, A. Erofeev, J. Fleischbein, P. M. Kosro, and S. D. Pierce. SeaSoar CTD Observations During the Coastal Mixing and Optics Experiment: R/V Endeavor Cruises from 14-Aug to 1-Sep 1996 and 25-Apr to 15-May 1997. College of Oceanic &amp; Atmospheric Sciences, Oregon State University, Corvallis. Reference 98-1, Data Report 168, October 1998.Questions regarding these data should be directed to: Dian J. GiffordGraduate School of OceanographyUniversity of Rhode IslandNarragansett, RI 02882-1197phone: 401-874-6690fax: 401-874-6240E-mail: gifford@gsosun1.gso.uri.edu (mailto:gifford@gsosun1.gso.uri.edu)orKaren WishnerGraduate School of OceanographyUniversity of Rhode IslandNarragansett, RI 02882-1197phone: 401-874-6402E-mail: kwishner@gsosun1.gso.uri.edu ()Last updated, March 24, 2006, gfh",
+	"distribution": [
+		{
+			"@id": "urn:ftp//ftp.nodc.noaa.gov/nodc/archive/arc0055/0106340/",
+			"@type": "DataDownload",
+			"additionalType": "dcat:distribution",
+			"dcat:accessURL": "",
+			"url": "",
+			"description": "These data are available through the File Transfer Protocol (FTP). The base URL of NODC's FTP server is ftp://ftp.nodc.noaa.gov/ and you may use any FTP client to download these data.. Service Protocol: These data are available through the File Transfer Protocol (FTP). The base URL of NODC's FTP server is ftp://ftp.nodc.noaa.gov/ and you may use any FTP client to download these data.. Application Profile: Any FTP client. Link Function: download",
+			"provider": {
+				"@type": "Role",
+				"roleName": "NODC User Services; pointOfContact",
+				"provider": {
+					"@type": "Organization",
+					"name": "NOAA National Oceanographic Data Center",
+					"email": [
+						"NODC.Services@noaa.gov"
+					]
+				}
+			},
+			"fileFormat": "Originator data format"
+		},
+		{
+			"@id": "http://accession.nodc.noaa.gov/download/106340",
+			"@type": "DataDownload",
+			"additionalType": "dcat:distribution",
+			"dcat:accessURL": "http://accession.nodc.noaa.gov/download/106340",
+			"url": "http://accession.nodc.noaa.gov/download/106340",
+			"description": "Navigate directly to the URL for data access and direct download.. Service Protocol: Navigate directly to the URL for data access and direct download.. Application Profile: Standard Internet browser. Link Function: download",
+			"provider": {
+				"@type": "Role",
+				"roleName": "NODC User Services; pointOfContact",
+				"provider": {
+					"@type": "Organization",
+					"name": "NOAA National Oceanographic Data Center",
+					"email": [
+						"NODC.Services@noaa.gov"
+					]
+				}
+			},
+			"fileFormat": "Originator data format"
+		}
+	],
+	"identifier": [
+		{
+			"@type": "PropertyValue",
+			"propertyID": "dataset identifier",
+			"value": "urn:"
+		}
+	],
+	"includedInDataCatalog": {
+		"@type": "DataCatalog",
+		"name": "Name of catalog source for record being transformed",
+		"url": "not defined"
+	},
+	"keywords": [
+		"0106340",
+		"106340",
+		"CHLOROPHYLL A",
+		"DISSOLVED OXYGEN",
+		"HYDROSTATIC PRESSURE",
+		"SALINITY",
+		"SIGMA-T",
+		"WATER TEMPERATURE",
+		"CTD",
+		"Undulating towed profiler",
+		"biological",
+		"chemical",
+		"physical",
+		"profile",
+		"undulating profile",
+		"ENDEAVOR",
+		"University of Rhode Island; Graduate School of Oceanography",
+		"Biological and Chemical Oceanography Data Management Office",
+		"US GLOBEC Georges Bank Program",
+		"North Atlantic Ocean",
+		"oceanography",
+		"chl_a",
+		"cruiseid",
+		"lat",
+		"lon",
+		"o2",
+		"press",
+		"sal",
+		"sigma_t",
+		"temp",
+		"tow",
+		"year",
+		"yrday_gmt",
+		"Survey",
+		"Observation",
+		"Island",
+		"Biological And Chemical Oceanography Data Management Office",
+		"Experiment",
+		"Sensor",
+		"Atmospheric Science",
+		"Oceanography",
+		"Instrument",
+		"PROFILERS",
+		"SCANFISH",
+		"SEASOAR",
+		"CHLOROPHYLL A",
+		"Chemical",
+		"Ocean",
+		"National Oceanographic Data Center"
+	],
+	"license": [
+		{
+			"@type": "DigitalDocument",
+			"name": "MD_Constraints",
+			"description": "useLimitation: Cite as: DuBois, D. and Biological and Chemical Oceanography Data Management Office (2013): CHLOROPHYLL A, SALINITY, HYDROSTATIC PRESSURE, DISSOLVED OXYGEN and other undulating profile data collected in the North Atlantic Ocean on the ENDEAVOR cruises EN321 and EN325 as part of the GB project from 1999-03-30 to 1999-06-27 (NODC Accession 0106340). National Oceanographic Data Center, NOAA. [access date]..   "
+		},
+		{
+			"@type": "DigitalDocument",
+			"name": "MD_Constraints",
+			"description": "useLimitation: Please note: NOAA and NODC make no warranty, expressed or implied, regarding these data, nor does the fact of distribution constitute such a warranty. NOAA and NODC cannot assume liability for any damages caused by any errors or omissions in these data..   "
+		},
+		{
+			"@type": "DigitalDocument",
+			"name": "MD_LegalConstraints",
+			"description": "accessConstraints: otherRestrictions.    otherConstraints: None..   "
+		}
+	],
+	"publisher": "publisher not specified",
+	"spatialCoverage": {
+		"@type": "Place",
+		"geo": {
+			"@type": "GeoShape",
+			"box": "-67.83502, 40.72768 -66.41446, 42.37286"
+		}
+	}
+}
