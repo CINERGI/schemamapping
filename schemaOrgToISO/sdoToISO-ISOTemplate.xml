@@ -13,6 +13,9 @@
     comparison of different implementations: https://cburgmer.github.io/json-path-comparison/
     -->
     
+    <!-- start with assumption that JSON-LD schema.org docs will follow 
+    https://github.com/earthcubearchitecture-project418/p418Vocabulary#schemaorg-jsonld -->
+    
     <!-- NOTE NOTE NOTE !!!!!!!!!!!!!!!!!!  
     JSON-LD must be preprocessed so that 
         1. sdo namespace elements do not have prefixes
@@ -24,7 +27,7 @@
     
     -->
     <gmd:fileIdentifier>
-        <gco:CharacterString>metadata-{{(lcase(trim($.'@id')))}}</gco:CharacterString>
+        <gco:CharacterString>metadata-{{(lcase(trim($.'at_id')))}}</gco:CharacterString>
     </gmd:fileIdentifier>
     <gmd:language>
         <gco:CharacterString>en</gco:CharacterString>
