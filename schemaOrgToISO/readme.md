@@ -15,3 +15,7 @@ java implemenation at https://github.com/json-path/JsonPath adds additional oper
     see https://pypi.org/search/?q=jsonpath for a bunch of python implementations...
     
     comparison of different implementations: https://cburgmer.github.io/json-path-comparison/
+	
+	
+JSON path tester: https://jsonpath.curiousconcept.com/
+
