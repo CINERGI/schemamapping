@@ -45,10 +45,10 @@
     <gmd:contact>
         <gmd:CI_ResponsibleParty>
             <gmd:organisationName>
-                <gco:CharacterString>Earthcube CINERGI Metadata Pipeline</gco:CharacterString>
+                <gco:CharacterString>Earthcube DataDiscovery Studio</gco:CharacterString>
             </gmd:organisationName>
             <gmd:positionName>
-                <gco:CharacterString>CINERGI Metadata Contact</gco:CharacterString>
+                <gco:CharacterString>DDS Metadata Contact</gco:CharacterString>
             </gmd:positionName> <gmd:contactInfo>
                 <gmd:CI_Contact>
                     <gmd:address>
@@ -83,9 +83,9 @@
                         <gco:CharacterString>{{ $.name }}</gco:CharacterString>
                     </gmd:title>
                     {% if $.alternateName %}
-                    <gmd:alternateTitle>
-                        <gco:CharacterString>{{ $.alternateName }}</gco:CharacterString>
-                    </gmd:alternateTitle>
+                        <gmd:alternateTitle>
+                            <gco:CharacterString>{{ $.alternateName }}</gco:CharacterString>
+                        </gmd:alternateTitle>
                     {% endif %}
                     {% if $.datePublished %}
                     <!-- TODO implement some error checking on the datePublished string -->
@@ -102,6 +102,13 @@
                             </gmd:CI_Date>
                         </gmd:date>
                     {$ endif %}
+                    
+                    {% if $.version %}
+                        <gmd:edition>
+                            <gco:CharacterString>version: {{$.version}}</gco:CharacterString>
+                        </gmd:edition>
+                    {% endif %}
+                    
                     <gmd:identifier>
                         <gmd:MD_Identifier>
                             <gmd:code>
@@ -152,7 +159,8 @@
                                         <gco:CharacterString>{{ @..name }}</gco:CharacterString>
                                     </gmd:organisationName>
                                 {% endif %}
-                                <gmd:contactInfo>
+             <!-- TBD need to process sdo contact information, but its not in the p418 examples -->
+                              <!--    <gmd:contactInfo>
                                     <gmd:CI_Contact>
                                         <gmd:phone>
                                             <gmd:CI_Telephone>
@@ -162,7 +170,7 @@
                                             </gmd:CI_Telephone>
                                         </gmd:phone>
                                     </gmd:CI_Contact>
-                                </gmd:contactInfo>
+                                </gmd:contactInfo>-->
                                 {% if @.at_type = "Role" %}
                                 <gmd:role>
                                     <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" 
@@ -177,11 +185,11 @@
                             </gmd:CI_ResponsibleParty>
                         </gmd:citedResponsibleParty>
                     {% endfor %}  <!-- item in $.creator.* -->
-
-                    <gmd:otherCitationDetails>
-                        <gco:CharacterString>Other citation Details</gco:CharacterString>
-                    </gmd:otherCitationDetails>
-                    
+                    {% if $.citation %}
+                        <gmd:otherCitationDetails>
+                            <gco:CharacterString>Recommended citation: {{$.citation}}</gco:CharacterString>
+                        </gmd:otherCitationDetails>
+                    {% endif %}
                 </gmd:CI_Citation>
             </gmd:citation> 
             {% if $.description %} 
@@ -205,13 +213,13 @@
             {% if row['Resource steward organization'] %} 
                 <gmd:pointOfContact>
                     <gmd:CI_ResponsibleParty> 
-                        {% if row['Resource steward organization'] %} 
+                        {% if  %} 
                             <gmd:individualName>
-                                <gco:CharacterString>{{ row['Resource steward person#info']}}</gco:CharacterString>
+                                <gco:CharacterString>{{ }}</gco:CharacterString>
                             </gmd:individualName> 
                         {% endif %} 
                         <gmd:organisationName>
-                            <gco:CharacterString>{{ row['Resource steward organization']}}</gco:CharacterString>
+                            <gco:CharacterString>{{ }}</gco:CharacterString>
                         </gmd:organisationName> 
                         {% if row['Resource POC e-mail#info'] or row['Resource POC voice phone#info'] %} 
                             <gmd:contactInfo>
@@ -323,18 +331,23 @@
             </gmd:descriptiveKeywords> 
             {% endif %} 
 
-            
+            {% if $.license or $.publishingPrinciples %}
             <gmd:resourceConstraints>
                 <gmd:MD_Constraints>
-                    <gmd:useLimitation>
-                        <gco:CharacterString>resource use limitation 1</gco:CharacterString>
-                    </gmd:useLimitation>
-                    <gmd:useLimitation>
-                        <gco:CharacterString>resource use limitation 2</gco:CharacterString>
-                    </gmd:useLimitation>
+                    {% if $.license %}
+                        <gmd:useLimitation>
+                            <gco:CharacterString> {{ $.license }} </gco:CharacterString>
+                        </gmd:useLimitation>
+                    {% endif %}
+                    <!-- might need different handler if publishing principles is an array of objects -->
+                    {% if $.publishingPrinciples %}
+                        <gmd:useLimitation>
+                            <gco:CharacterString>ID: {{$.publishingPrinciples.at_id}}, name: {{$.publishingPrinciples.name}}, URL: {{$.publishingPrinciples.url}} </gco:CharacterString>
+                        </gmd:useLimitation>
+                    {% endif %}
                 </gmd:MD_Constraints>
             </gmd:resourceConstraints>
-            
+            {% endif %}
            
             <gmd:language>
                 <gco:CharacterString>en</gco:CharacterString>
@@ -345,40 +358,55 @@
             <gmd:topicCategory>
                 <gmd:MD_TopicCategoryCode>environment</gmd:MD_TopicCategoryCode>
             </gmd:topicCategory> 
-            {#
-            <!--
+            
+            {% if $.temporalCoverage OR $.spatialCoverage %}
                  <gmd:extent>
                      <gmd:EX_Extent>
+                         {% for item in $.spatialCoverage..box %}
+                         <!-- would be good to have a function here to check that the coordinates given for 
+                         the box make sense. Should be southwest corner-space-northwest corner,
+                         with coordinates lat, long. Comma separation between lat and long, space separation 
+                         between corner points. -->
                          <gmd:geographicElement>
+                             <!-- assume 0-based indexes on arrays from 'split' function -->
                              <gmd:EX_GeographicBoundingBox>
                                  <gmd:westBoundLongitude>
-                                     <gco:Decimal>-180</gco:Decimal>
+                                     <gco:Decimal>{{ @ | split(" ")[0] | split(",")[1] }}</gco:Decimal>
                                  </gmd:westBoundLongitude>
                                  <gmd:eastBoundLongitude>
-                                     <gco:Decimal>180</gco:Decimal>
+                                     <gco:Decimal>{{ @ | split(" ")[1] | split(",")[1] }}</gco:Decimal>
                                  </gmd:eastBoundLongitude>
                                  <gmd:southBoundLatitude>
-                                     <gco:Decimal>-90</gco:Decimal>
+                                     <gco:Decimal>{{ @ | split(" ")[0] | split(",")[0] }}</gco:Decimal>
                                  </gmd:southBoundLatitude>
                                  <gmd:northBoundLatitude>
-                                     <gco:Decimal>90</gco:Decimal>
+                                     <gco:Decimal>{{ @ | split(" ")[1] | split(",")[0] }}</gco:Decimal>
                                  </gmd:northBoundLatitude>
                              </gmd:EX_GeographicBoundingBox>
                          </gmd:geographicElement>
+                         {% endfor %}  <!-- bounding box handler -->
+                         
+                         <!-- TBD  handl polygon represenations, but have to determine if they are different from bounding box.
+                         If only a polygon is provided, e.g. spatialCoverate.geo.polygon, need to calculate bounding box from 
+                         the coordinates provided. -->
+                         {% if $.temporalCoverage %}
                          <gmd:temporalElement>
                              <gmd:EX_TemporalExtent>
                                  <gmd:extent>
                                      <gml:TimePeriod gml:id="Temporal">
-                                         <gml:beginPosition>[startdate 1999-01-01]</gml:beginPosition>
-                                         <gml:endPosition>[enddate - 2000-12-31]</gml:endPosition>
+                                         <!-- sdo date range syntax is like 2012-09-20/2016-01-22 '/' separate start and end dates-->
+                                         <gml:beginPosition>{{ $.temporalCoverage | split('/') [1]}} </gml:beginPosition>
+                                         <gml:endPosition>{{ $.temporalCoverage | split('/') [2]}}</gml:endPosition>
                                      </gml:TimePeriod>
                                  </gmd:extent>
                              </gmd:EX_TemporalExtent>
                          </gmd:temporalElement>
+                         {% endif}  <!-- temporal coverage -->
                      </gmd:EX_Extent>
                  </gmd:extent>
-                 -->
-            #} 
+            
+            {% endif %} <!-- spatial or temporal coverage -->
+
             <gmd:supplementalInformation>
                 <gco:CharacterString>Data Identification supplemental information</gco:CharacterString>
             </gmd:supplementalInformation>
